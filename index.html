@@ -1,0 +1,231 @@
+
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/caveat/index.css');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+.nb{display:flex;font-family:'Caveat','Comic Sans MS',cursive}
+.nbp{flex:1;background:#f8f4ea;position:relative;
+  background-image:repeating-linear-gradient(transparent,transparent 27px,#c5d8ee 27px,#c5d8ee 28px);
+  background-size:100% 28px;background-position-y:22px}
+.nbsp{width:38px;background:#c2bfb5;border-left:2px solid #aaa49a;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:17px}
+.ring{width:20px;height:14px;border:3.5px solid #4a7050;border-radius:50%;background:#f0ede2;flex-shrink:0}
+.pi{padding:16px 16px 36px 16px;position:relative;z-index:1}
+
+.hdr{display:flex;align-items:center;gap:10px;padding-bottom:7px;border-bottom:2.5px solid #1a274a;margin-bottom:12px}
+.ppb{border:2.5px solid #1a274a;padding:2px 9px 0;font-size:21px;font-weight:700;color:#1a274a;line-height:1.2;display:inline-block}
+.har{font-size:19px;color:#1a274a;font-weight:700}
+.htx{font-size:23px;font-weight:700;color:#1a274a;text-transform:uppercase;letter-spacing:.4px}
+
+.bst{margin:0 0 12px 6px;padding:5px 8px 5px 12px;border-left:1.5px dashed #90a0b8;opacity:.7}
+.bsr{font-size:14px;color:#1a274a;line-height:1.85;display:flex;flex-wrap:wrap;gap:3px;align-items:flex-start}
+.bssub{padding-left:14px;font-size:12.5px;color:#3a4a62;line-height:1.6}
+.divl{border:none;border-top:1px solid #96a8bc;margin:0 0 12px;opacity:.4}
+
+.pw{position:relative}
+.fsvg{position:absolute;left:0;top:0;width:48px;overflow:visible;pointer-events:none}
+.pg{display:grid;grid-template-columns:1fr 148px;gap:0 12px;padding-left:46px}
+
+.ph{margin-bottom:13px;border:1.5px solid rgba(26,39,74,.28);padding:9px 11px;background:rgba(250,244,230,.5)}
+.phn{font-size:11.5px;color:#7a8898;text-transform:uppercase;letter-spacing:.6px;line-height:1;margin-bottom:3px}
+.phtitle{font-size:19px;font-weight:700;color:#1a274a;border-bottom:2px solid #1a274a;padding-bottom:1px;display:inline-block;line-height:1.15;margin-bottom:5px}
+.phb{font-size:14px;color:#1a274a;line-height:1.82}
+.phb ul{list-style:none;padding-left:2px}
+.phb ul li::before{content:'→ '}
+.brc{margin-top:3px}
+.bri{display:flex;gap:5px;font-size:14px;color:#1a274a;line-height:1.82;align-items:flex-start}
+.briar{flex-shrink:0}
+.brsub{padding-left:14px;font-size:12.5px;color:#384a60;line-height:1.6}
+.bdgr{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.bdg{border:1.5px solid rgba(26,39,74,.45);border-radius:10px;padding:1px 7px;font-size:12.5px;color:#1a274a}
+
+.rail{display:flex;flex-direction:column;gap:14px}
+.pt{padding:8px 10px;font-size:13px;color:#121000;line-height:1.5}
+.ptl{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;padding-bottom:3px;border-bottom:1px solid rgba(0,0,0,.16)}
+.pty{background:#fce87c;transform:rotate(2deg)}
+.ptg{background:#b6e0b0;transform:rotate(-2.4deg);color:#081608}
+.ptp{background:#f0b8c4;transform:rotate(1.2deg)}
+.mnote{font-size:11.5px;color:#6a7888;font-style:italic;padding-left:7px;border-left:2px solid #c2d5ea;line-height:1.6;transform:rotate(-.5deg);display:block;margin-top:4px}
+
+.conv{display:flex;flex-direction:column;align-items:center;padding-top:12px;gap:3px}
+.conar{font-size:15px;color:#1a274a;letter-spacing:10px;line-height:1}
+.creac{font-size:28px;font-weight:700;color:#1a274a;text-transform:uppercase;letter-spacing:1.5px;
+  border-bottom:3.5px double #1a274a;padding-bottom:2px;display:inline-block}
+</style>
+
+<div class="nb">
+  <div class="nbp">
+    <div class="pi">
+
+      <div class="hdr">
+        <span class="ppb">P.P</span>
+        <span class="har">→</span>
+        <span class="htx">Fases</span>
+      </div>
+
+      <div class="bst">
+        <div class="bsr">Modelo de impacto <strong style="margin-left:3px">→ medición de impacto</strong></div>
+        <div class="bsr">Aptitudes aprendidas <div class="bssub">← Proyectos / Equipo / etc.</div></div>
+        <div class="bsr">Proyectos pero deep <div class="bssub">← Misión Visión Valores / Resultados / Aprendizajes</div></div>
+      </div>
+
+      <hr class="divl">
+
+      <div class="pw">
+        <svg class="fsvg" id="fsvg" viewBox="0 0 48 520" height="520">
+          <defs>
+            <marker id="ta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+              <path d="M1 2L9 5L1 8" fill="none" stroke="#1a274a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <path id="scurve" d="" stroke="#1a274a" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <line id="t0" x1="22" y1="0" x2="44" y2="0" stroke="#1a274a" stroke-width="1.6" marker-end="url(#ta)" stroke-linecap="round"/>
+          <line id="t1" x1="22" y1="0" x2="44" y2="0" stroke="#1a274a" stroke-width="1.6" marker-end="url(#ta)" stroke-linecap="round"/>
+          <line id="t2" x1="22" y1="0" x2="44" y2="0" stroke="#1a274a" stroke-width="1.6" marker-end="url(#ta)" stroke-linecap="round"/>
+          <line id="t3" x1="22" y1="0" x2="44" y2="0" stroke="#1a274a" stroke-width="1.6" marker-end="url(#ta)" stroke-linecap="round"/>
+        </svg>
+
+        <div class="pg">
+          <div>
+            <div class="ph" id="ph0">
+              <div class="phn">0 fase</div>
+              <div class="phtitle">Introducción personal</div>
+              <div class="phb">
+                <ul>
+                  <li>Propósito y valores individuales</li>
+                  <li>Marca personal ↔ cultura de empresa</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ph" id="ph1">
+              <div class="phn">1ª fase</div>
+              <div class="phtitle">Grupo de proyecto</div>
+              <div class="brc">
+                <div class="bri"><span class="briar">←</span><span>Modelo de medición de impacto</span></div>
+                <div class="bri"><span class="briar">←</span>
+                  <div>Aptitudes aprendidas
+                    <div class="brsub">{ Profesional: metodologías y flujos<br>{ Personal: inteligencia emocional</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ph" id="ph2">
+              <div class="phn">2 fase</div>
+              <div class="phtitle">Proyectos deep</div>
+              <div class="brc">
+                <div class="bri"><span class="briar">←</span><span>M/V/V — el proyecto respira valores</span></div>
+                <div class="bri"><span class="briar">←</span><span>Resultados — hitos y KPIs</span></div>
+                <div class="bri"><span class="briar">←</span><span>Problemáticas — pivotar con éxito</span></div>
+                <div class="bri"><span class="briar">←</span><span>Técnico — stack + know-how</span></div>
+              </div>
+            </div>
+
+            <div class="ph" id="ph3">
+              <div class="phn">3 fase</div>
+              <div class="phtitle">Liderazgos</div>
+              <div class="phb">
+                Herramienta maleable según el momento
+                <div class="bdgr">
+                  <span class="bdg">Técnico</span>
+                  <span class="bdg">Servicial</span>
+                  <span class="bdg">Transformacional</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="conv">
+              <div class="conar">↙&thinsp;↓&thinsp;↘</div>
+              <span class="creac">CREACIÓN</span>
+              <span style="font-size:22px;color:#1a274a;margin-top:2px">.</span>
+            </div>
+          </div>
+
+          <div class="rail" id="rail">
+            <div class="pt pty">
+              <span class="ptl">Recordatorio</span>
+              No «qué hiciste» sino <strong>qué cambiaste</strong>. Métricas de impacto real.
+            </div>
+            <div class="pt ptg">
+              <span class="ptl">Key insight</span>
+              Vulnerabilidad sobre fallos resueltos = nivel real. No éxito sin esfuerzo.
+            </div>
+            <div class="pt ptp">
+              <span class="ptl">Liderazgo</span>
+              No es posición fija. Es el rol que asumes según el momento del proyecto.
+            </div>
+            <div style="margin-top:16px;display:flex;flex-direction:column;align-items:center">
+              <svg width="62" height="66" viewBox="0 0 68 76" style="opacity:.48">
+                <path d="M24 14 C22 10 25 7 23 4" stroke="#8a7060" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <path d="M34 12 C32 8 35 5 33 2" stroke="#8a7060" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <path d="M44 14 C42 10 45 7 43 4" stroke="#8a7060" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <path d="M12 20 L16 60 Q16 64 20 64 L48 64 Q52 64 52 60 L56 20 Z" stroke="#5a4030" stroke-width="1.8" fill="#ead8c0"/>
+                <path d="M14 26 Q34 22 54 26" stroke="#7a5535" stroke-width="1.5" fill="#7a5535"/>
+                <path d="M52 32 C64 32 66 42 64 50 C62 58 52 52 52 52" stroke="#5a4030" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <ellipse cx="34" cy="65" rx="25" ry="5" stroke="#5a4030" stroke-width="1.5" fill="#d0b898"/>
+                <text x="34" y="74" text-anchor="middle" font-size="10" fill="#8a7060" font-family="Caveat,cursive">café + ideas</text>
+              </svg>
+              <span class="mnote">esto es el proceso,<br>no el resultado final.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nbsp">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+  </div>
+</div>
+
+<script>
+function buildS(pts) {
+  if (!pts.length) return '';
+  let d = 'M 22 ' + pts[0];
+  for (let i = 1; i < pts.length; i++) {
+    const y1 = pts[i-1], y2 = pts[i];
+    const s = i % 2 === 1 ? 1 : -1;
+    const o = 13;
+    d += ' C ' + (22 - s*o) + ' ' + (y1 + (y2-y1)*.3) + ' ' + (22 + s*o) + ' ' + (y1 + (y2-y1)*.7) + ' 22 ' + y2;
+  }
+  const last = pts[pts.length-1];
+  d += ' C 14 ' + (last+18) + ' 18 ' + (last+28) + ' 22 ' + (last+32);
+  return d;
+}
+
+function update() {
+  const wrap = document.querySelector('.pw');
+  const wTop = wrap.getBoundingClientRect().top;
+  const ids = ['ph0','ph1','ph2','ph3'];
+  const centers = ids.map(function(id) {
+    const el = document.getElementById(id);
+    const r = el.getBoundingClientRect();
+    return r.top - wTop + r.height / 2;
+  });
+  const svg = document.getElementById('fsvg');
+  const h = centers[centers.length-1] + 50;
+  svg.setAttribute('viewBox', '0 0 48 ' + h);
+  svg.setAttribute('height', h);
+  document.getElementById('scurve').setAttribute('d', buildS(centers));
+  centers.forEach(function(y, i) {
+    const t = document.getElementById('t' + i);
+    t.setAttribute('y1', y); t.setAttribute('y2', y);
+  });
+  const rail = document.getElementById('rail');
+  const pt1 = Math.max(0, centers[1] - 44);
+  rail.style.paddingTop = pt1 + 'px';
+}
+
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(function(){ setTimeout(update, 60); });
+} else {
+  setTimeout(update, 250);
+}
+</script>
