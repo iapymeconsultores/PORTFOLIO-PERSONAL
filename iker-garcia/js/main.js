@@ -225,13 +225,14 @@ function start() {
     ppu = h / visH; W2 = w / 2; H2 = h / 2;
     Rpx = R * ppu; cardPx = cardScale * ppu;
     const inner = (R - cardScale * .62) * ppu;
-    const textH = 84;
+    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    const textH = rem * 5.25;
     inside = inner >= 190;
-    pfd = inside ? Math.min(1.85 * inner, 2 * (inner * .97 - textH - 8), 400) : Math.min(1.7 * inner, 280);
+    pfd = inside ? Math.min(1.85 * inner, (inner * .97 - textH - 14) / .54, 720) : Math.min(1.7 * inner, 280);
     pfEl.style.setProperty('--pfd', pfd + 'px');
-    const ctop = inside ? pfd * .5 + 6 : Rpx + cardPx * .5 + 30;
+    const ctop = inside ? pfd * .54 + 14 : Rpx + cardPx * .5 + 30;
     center.style.setProperty('--ctop', ctop + 'px');
-    center.style.setProperty('--cw', Math.min(w - 32, inside ? inner * 1.7 : 420) + 'px');
+    center.style.setProperty('--cw', Math.min(w - 32, inside ? inner * 1.7 : 26 * rem) + 'px');
   }
   resize();
   addEventListener('resize', resize);

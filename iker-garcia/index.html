@@ -39,8 +39,11 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html,body{height:100%}
+/* en pantallas grandes todo crece con la ventana: textos, botones y panel */
+html{font-size:clamp(16px,calc(10px + .45vw),24px)}
+[hidden]{display:none!important}
 body{
-  margin:0;background-color:var(--bg);color:var(--ink);font-family:var(--f-display);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  margin:0;background-color:var(--bg);color:var(--ink);font-family:var(--f-display);font-size:1rem;line-height:1.55;-webkit-font-smoothing:antialiased;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:50px 50px;background-position:-1px -1px;overflow:hidden;
 }
@@ -52,10 +55,10 @@ button{font:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .mono{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.04em;text-transform:uppercase}
 .soft{color:var(--soft)}
-.btn{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;background:var(--card);border:0;padding:0 16px;height:44px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:background .2s,color .2s}
+.btn{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;background:var(--card);border:0;padding:0 1rem;height:2.75rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:background .2s,color .2s}
 .btn:hover{background:var(--ink);color:var(--bg)}
 .btn kbd{font:inherit;opacity:.5}
-.btn.ico{width:44px;padding:0;justify-content:center}
+.btn.ico{width:2.75rem;padding:0;justify-content:center}
 .btn[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 
 /* esquinas */
@@ -66,11 +69,11 @@ button{font:inherit;color:inherit}
 .top nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .bl{position:fixed;z-index:20;left:var(--sl);bottom:calc(16px + var(--sb))}
 .br{position:fixed;z-index:20;right:var(--sr);bottom:calc(16px + var(--sb));display:flex;gap:6px;align-items:stretch}
-.plabel{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;background:var(--card);min-width:min(300px,44vw);height:44px;display:flex;align-items:center;padding:0 16px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dial{width:96px;height:96px;background:var(--card);position:relative}
+.plabel{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;background:var(--card);min-width:min(18.75rem,44vw);height:2.75rem;display:flex;align-items:center;padding:0 1rem;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dial{width:6rem;height:6rem;background:var(--card);position:relative}
 .dial i{position:absolute;left:50%;top:50%;width:2px;margin-left:-1px;transform-origin:50% 0;transform:rotate(0deg)}
-.dial #handMouse{height:42px;margin-top:0;background:var(--ink);transform-origin:50% 0%}
-.dial #handRing{height:34px;background:var(--red)}
+.dial #handMouse{height:2.6rem;margin-top:0;background:var(--ink);transform-origin:50% 0%}
+.dial #handRing{height:2.1rem;background:var(--red)}
 .dial i{top:50%}
 .dial #handMouse,.dial #handRing{transform-origin:50% 0;translate:0 0}
 .dial .hub{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--ink);border-radius:50%}
@@ -119,7 +122,7 @@ body.is-index #grp{display:none}
 #grp.hot #grpArc{stroke-width:4.5}
 #grpDots circle{fill:var(--bg);stroke:var(--ink);stroke-width:2;transition:r .2s}
 #grpDots circle.m,#grpDots circle.on{fill:var(--mark)}
-#grpTxt{display:none;font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink)}
+#grpTxt{display:none;font-family:var(--f-mono);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink)}
 #grp.lab #grpTxt{display:block}
 .beam{position:fixed;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;overflow:visible;opacity:0;transition:opacity .25s}
 .beam.on{opacity:1}
@@ -136,7 +139,7 @@ body.is-index #stage,body.is-index .center,body.is-index .loader,body.is-index .
 .index h1{font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:clamp(2.6rem,8vw,6.2rem);line-height:.86;letter-spacing:-.02em;margin:0 0 8px}
 .index h1 .mk{background:var(--mark);color:var(--mark-ink);padding:0 .06em}
 .index .lead{max-width:44em;margin:0 0 36px;font-size:1.08rem}
-#indexGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px 16px}
+#indexGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:1.4rem 1rem}
 .igh{grid-column:1/-1;margin:22px 0 -6px;padding-top:12px;border-top:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
 .igh:first-child{margin-top:0}
 .igh b{font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:1.5rem;line-height:1}
@@ -155,12 +158,12 @@ body.is-index #stage,body.is-index .center,body.is-index .loader,body.is-index .
 .il .nm{font-family:var(--f-mono);font-size:.82rem;font-weight:500;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* panel */
-dialog.panel{border:0;padding:0;margin:0 0 0 auto;height:100%;max-height:100%;width:min(920px,100%);max-width:100%;background:var(--bg);color:var(--ink);overflow:hidden;
+dialog.panel{border:0;padding:0;margin:0 0 0 auto;height:100%;max-height:100%;width:min(58rem,100%);max-width:100%;background:var(--bg);color:var(--ink);overflow:hidden;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:50px 50px}
 dialog.panel::backdrop{background:color-mix(in srgb,#000 40%,transparent);backdrop-filter:blur(2px)}
 dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 @keyframes pin{from{transform:translateX(60px);opacity:0}}
-.pwrap{height:100%;overflow-y:auto;overscroll-behavior:contain}
+.pwrap{height:100%;overflow-y:auto;overscroll-behavior:contain;container-type:inline-size}
 .pbar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:calc(10px + var(--st)) var(--sr) 10px var(--sl);background:var(--bg);border-bottom:1px solid var(--line)}
 .pbar .grp{display:flex;gap:6px}
 .pbody{padding:26px var(--sr) calc(56px + var(--sb)) var(--sl)}
@@ -170,7 +173,7 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .crumb button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .pbody .crumb span{color:var(--soft)}
 .pbody .crumb b{font-weight:700;border:1px solid var(--ink);padding:2px 8px}
-.pbody h3{font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:clamp(2.4rem,6vw,4.6rem);line-height:.88;letter-spacing:-.015em;margin:.1em 0 .25em;text-wrap:balance}
+.pbody h3{font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:clamp(2rem,8.4cqi,4.6rem);line-height:.88;letter-spacing:-.015em;margin:.1em 0 .25em;text-wrap:balance;overflow-wrap:break-word}
 .pbody .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
 .pbody .meta span{border:1px solid var(--ink);padding:3px 8px;font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.03em}
 .pbody p{max-width:64ch;margin:0 0 .9em;font-size:1.05rem}
@@ -186,7 +189,8 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .gal figcaption{margin-top:5px}
 .pbody .src{margin-top:18px;display:flex;flex-direction:column;gap:6px}
 .pbody .src a{font-family:var(--f-mono);font-size:.74rem;text-underline-offset:3px;text-decoration-color:var(--mark);text-decoration-thickness:2px}
-.pbody .about-top{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;align-items:end}
+.pbody .about-top > div{container-type:inline-size}
+.pbody .about-top{display:grid;grid-template-columns:minmax(0,1fr) 13.75rem;gap:24px;align-items:end}
 .pbody .about-top img{filter:grayscale(1);aspect-ratio:4/5;object-fit:cover;object-position:30% 30%}
 .pbody ol.path{list-style:none;margin:20px 0;padding:0;border-top:1px solid var(--ink)}
 .pbody ol.path li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
