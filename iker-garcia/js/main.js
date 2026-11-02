@@ -3,20 +3,24 @@ import { animate, stagger } from '../vendor/anime.esm.min.js';
 
 /* ---------- datos ---------- */
 const PROJECTS = [
-  { id: 'dripzone',    n: 'Dripzone Shop',            y: '2022',          t: 'Ecommerce',      img: 'img/dripzone_perfil.jpg', fy: 0 },
-  { id: 'leinn',       n: 'LEINN · RIVIA',            y: '2023',          t: 'Formación',      img: 'img/c_leinn.jpg' },
-  { id: 'berlanga',    n: 'Bar de Berlanga de Duero', y: '2024 · 2025',   t: 'Licitación',     img: 'img/c_berlanga.jpg' },
-  { id: 'frezzyks',    n: 'Frezzyks',                 y: 'Dic 2024',      t: 'Retail',         img: 'img/frezzyks_stand.jpg', fy: .35 },
-  { id: 'slingdog',    n: 'Slingdog',                 y: 'En paralelo',   t: 'Producto',       img: 'img/slingdog_stand.jpg' },
-  { id: 'nueva-york',  n: 'Nueva York',               y: 'Ene–mar 2025',  t: 'Economía social', img: 'img/c_nueva-york.jpg' },
-  { id: 'iapyme',      n: 'IApyme Consultores',       y: 'Abr 2025 → hoy', t: 'Cofundador · CEO', img: 'img/w_lineaia.jpg', fy: .2 },
-  { id: 'asett',       n: 'Foro ASETT',               y: 'Mayo 2025',     t: 'Ponencia',       img: 'img/asett.jpg', fy: .35 },
-  { id: 'impulso',     n: 'Impulso Digital',          y: 'May 2025 → ene 2026', t: 'Consultoría', img: 'img/c_impulso.jpg' },
-  { id: 'india-corea', n: 'India y Corea',            y: 'Ene–abr 2026',  t: 'Internacional',  img: 'img/iapyme_india.jpg' },
-  { id: 'scarpa',      n: 'SCARPA',                   y: 'Sep 2026',          t: 'Shopify',        img: 'img/c_scarpa.jpg' },
-  { id: 'gorobel',     n: 'Gorobel Kirol Gunea',      y: 'Oct 2026',      t: 'Consultoría',    img: 'img/w_propuesta.jpg', fx: 0, fy: 0 },
-  { id: 'alambique',   n: 'Alambique',                y: 'Oct 2026 → hoy', t: 'SaaS · MVP', img: 'img/a_bodega.jpg', fx: .5, fy: 0 },
+  { id: 'dripzone',    n: 'Dripzone Shop',            y: '2022',            t: 'Ecommerce' },
+  { id: 'leinn',       n: 'LEINN · RIVIA',            y: '2023',            t: 'Formación' },
+  { id: 'berlanga',    n: 'Bar de Berlanga de Duero', y: '2024 · 2025',     t: 'Licitación' },
+  { id: 'frezzyks',    n: 'Frezzyks',                 y: 'Dic 2024',        t: 'Retail' },
+  { id: 'slingdog',    n: 'Slingdog',                 y: 'En paralelo',     t: 'Producto' },
+  { id: 'nueva-york',  n: 'Nueva York',               y: 'Ene–mar 2025',    t: 'Economía social' },
+  { id: 'asett',       n: 'Foro ASETT',               y: 'Mayo 2025',       t: 'Ponencia' },
+  { id: 'iapyme',      n: 'IApyme Consultores',       y: 'Abr 2025 → hoy',  t: 'Cofundador · CEO', main: true },
+  { id: 'impulso',     n: 'Impulso Digital',          y: 'May 2025 → ene 2026', t: 'Consultoría', path: ['iapyme'] },
+  { id: 'baranano',    n: 'Licores Barañano',         y: '2025 → hoy',      t: 'Software a medida', path: ['iapyme', 'impulso'] },
+  { id: 'india-corea', n: 'India y Corea',            y: 'Ene–abr 2026',    t: 'Internacional', path: ['iapyme'] },
+  { id: 'scarpa',      n: 'SCARPA',                   y: 'Sep 2026',        t: 'Shopify', path: ['iapyme'] },
+  { id: 'gorobel',     n: 'Gorobel Kirol Gunea',      y: 'Oct 2026',        t: 'Consultoría', path: ['iapyme', 'impulso'] },
+  { id: 'alambique',   n: 'Alambique',                y: 'Oct 2026 → hoy',  t: 'SaaS · MVP', path: ['iapyme', 'impulso', 'baranano'] },
 ];
+PROJECTS.forEach((p) => { p.img = `img/k_${p.id}.jpg`; p.g = !!(p.main || p.path); });
+const G0 = PROJECTS.findIndex((p) => p.g), G1 = PROJECTS.length - 1 - [...PROJECTS].reverse().findIndex((p) => p.g);
+const byId = (id) => PROJECTS.findIndex((p) => p.id === id);
 const N = PROJECTS.length;
 let vel = 0;
 const pad = (i) => String(i + 1).padStart(2, '0');
@@ -39,15 +43,23 @@ $('#themeBtn').addEventListener('click', toggleTheme);
 const nav = $('#projList');
 const gridEl = $('#indexGrid');
 PROJECTS.forEach((p, i) => {
+  if (i === 0 || i === G0) {
+    const h = document.createElement('p');
+    h.className = 'igh';
+    h.innerHTML = i === 0 ? '<b>Antes de IApyme</b><span>2022 → 2025 · lo que me trajo hasta aquí</span>' : '<b>IApyme Consultores</b><span>El proyecto principal y todo lo que ha salido de él</span>';
+    gridEl.appendChild(h);
+  }
   const li = document.createElement('li');
   li.innerHTML = `<button type="button" data-i="${i}"><span class="ix">${pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></button>`;
   nav.appendChild(li);
   const card = document.createElement('button');
-  card.type = 'button'; card.className = 'icard'; card.dataset.i = i;
-  card.innerHTML = `<span class="ic"><img src="${p.img}" alt="" loading="lazy" style="object-position:${(p.fx ?? .5) * 100}% ${(p.fy ?? .5) * 100}%"></span><span class="il"><span class="ix">${pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></span>`;
+  card.type = 'button'; card.className = 'icard' + (p.main ? ' main' : ''); card.dataset.i = i;
+  card.innerHTML = `<span class="ic"><img src="${p.img}" alt="" loading="lazy" ></span><span class="il"><span class="ix">${pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></span>`;
   gridEl.appendChild(card);
 });
 document.addEventListener('click', (e) => {
+  const o = e.target.closest('[data-open]');
+  if (o) { const k = byId(o.dataset.open); if (k > -1) { openCase(k); return; } }
   const b = e.target.closest('[data-i]');
   if (b && (b.closest('#projList') || b.closest('#indexGrid'))) openCase(+b.dataset.i);
 });
@@ -60,6 +72,12 @@ function openCase(i, fromHash) {
   const p = PROJECTS[cur];
   const tpl = document.getElementById('case-' + p.id);
   body.innerHTML = tpl ? tpl.innerHTML : '';
+  if (p.path) {
+    const nav = document.createElement('nav');
+    nav.className = 'crumb'; nav.setAttribute('aria-label', 'De dónde sale');
+    nav.innerHTML = p.path.map((id) => `<button type="button" data-open="${id}">${PROJECTS[byId(id)].n}</button>`).join('<span aria-hidden="true">→</span>') + `<span aria-hidden="true">→</span><b>${p.n}</b>`;
+    body.prepend(nav);
+  }
   pix.textContent = `${pad(cur)} / ${pad(N - 1)}`;
   $('#panelNav').hidden = false;
   if (!dlg.open) dlg.showModal();
@@ -161,6 +179,8 @@ function start() {
 
   const CARD_W = 1, CARD_H = .75;
   const geo = new THREE.PlaneGeometry(CARD_W, CARD_H);
+  const hitMat = new THREE.MeshBasicMaterial({ visible: false, side: THREE.DoubleSide });
+  const hits = [];
   const cards = PROJECTS.map((p, i) => {
     const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, toneMapped: false, side: THREE.DoubleSide });
     loader.load(p.img, (tex) => {
@@ -174,11 +194,25 @@ function start() {
     const m = new THREE.Mesh(geo, mat);
     m.userData = { i, s: 0, hover: 0, base: (Math.PI / 2) - (i / N) * Math.PI * 2 };
     ring.add(m);
+    /* zona de detección fija: no se mueve al pasar el ratón, así la tarjeta no entra y sale del hover sola */
+    const hit = new THREE.Mesh(geo, hitMat);
+    hit.userData = { i };
+    ring.add(hit); hits.push(hit);
     return m;
   });
 
   /* tamaño */
-  let R = 3, cardScale = 1;
+  let R = 3, cardScale = 1, ppu = 100, W2 = 0, H2 = 0, Rpx = 300, cardPx = 100, pfd = 300, inside = true;
+  const pfEl = $('#pf'), pfs = pfEl.querySelector('svg'), pfPtr = $('#pfPtr'), pfRead = $('#pfRead');
+  const layers = [...pfEl.querySelectorAll('.pf-k')].map((g) => ({ g, k: +g.dataset.k }));
+  const grp = $('#grp'), grpTxt = $('#grpTxt'), grpArc = $('#grpArc'), grpTP = $('#grpTP'), grpDots = $('#grpDots');
+  const dots = [];
+  for (let k = G0; k <= G1; k++) {
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('r', PROJECTS[k].main ? 7 : 4); if (PROJECTS[k].main) c.classList.add('m');
+    grpDots.appendChild(c); dots.push(c);
+  }
+  const beam = $('#beam'), beamLine = $('#beamLine'), beamRet = $('#beamRet'), beamDot = $('#beamDot');
   function resize() {
     const w = stage.clientWidth, h = stage.clientHeight;
     renderer.setSize(w, h, false);
@@ -188,6 +222,16 @@ function start() {
     const m = Math.min(visW, visH * .86);
     R = m * .42;
     cardScale = Math.max(.42, R * .33);
+    ppu = h / visH; W2 = w / 2; H2 = h / 2;
+    Rpx = R * ppu; cardPx = cardScale * ppu;
+    const inner = (R - cardScale * .62) * ppu;
+    const textH = 84;
+    inside = inner >= 190;
+    pfd = inside ? Math.min(1.85 * inner, 2 * (inner * .97 - textH - 8), 400) : Math.min(1.7 * inner, 280);
+    pfEl.style.setProperty('--pfd', pfd + 'px');
+    const ctop = inside ? pfd * .5 + 6 : Rpx + cardPx * .5 + 30;
+    center.style.setProperty('--ctop', ctop + 'px');
+    center.style.setProperty('--cw', Math.min(w - 32, inside ? inner * 1.7 : 420) + 'px');
   }
   resize();
   addEventListener('resize', resize);
@@ -208,6 +252,7 @@ function start() {
     animate(pct, { opacity: 0, duration: 400, delay: 200, ease: 'outQuad', onComplete: () => { pct.hidden = true; } });
     intro();
     center.classList.add('on');
+    pfEl.classList.add('on');
   };
   $('#replayBtn').addEventListener('click', () => { if (document.body.classList.contains('is-index')) setIndex(false); intro(); });
 
@@ -224,6 +269,7 @@ function start() {
   }, { passive: true });
 
   stage.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse') { hasMouse = false; mouse.set(9, 9); setHover(-1); }
     dragging = true; moved = 0; lastX = e.clientX; lastY = e.clientY; downAt = performance.now();
     stage.setPointerCapture(e.pointerId);
   });
@@ -248,7 +294,7 @@ function start() {
       const r = stage.getBoundingClientRect();
       mouse.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
       ray.setFromCamera(mouse, camera);
-      const hit = ray.intersectObjects(cards)[0];
+      const hit = ray.intersectObjects(hits)[0];
       if (hit) openCase(hit.object.userData.i);
     }
   });
@@ -257,22 +303,29 @@ function start() {
   /* brújula */
   const handMouse = $('#handMouse'), handRing = $('#handRing'), dial = $('#dial');
 
+  let focus = -2, sel = -1;
+  function showFocus(i) {
+    if (i === focus) return;
+    focus = i;
+    if (i > -1) {
+      const p = PROJECTS[i];
+      label.textContent = `/${p.n}`;
+      const chip = p.main ? '<span class="cgrp">Proyecto matriz</span>' : (p.g ? '<span class="cgrp">IApyme</span>' : '');
+      center.innerHTML = `<span class="crow"><span class="cix">${pad(i)} / ${String(N).padStart(2, '0')}</span>${chip}</span><span class="cnm">${p.n}</span><span class="cyr">${p.y} · ${p.t}</span>`;
+    } else {
+      label.textContent = '/Proyecto';
+      center.innerHTML = `<span class="cnm">Iker García</span><span class="cyr"><span class="cme">Portfolio personal</span></span><span class="cyr">${N} proyectos · 2022 → 2026</span>`;
+    }
+  }
   function setHover(i) {
     if (i === hovered) return;
     hovered = i;
     stage.style.cursor = i > -1 ? 'pointer' : 'grab';
-    if (i > -1) {
-      const p = PROJECTS[i];
-      label.textContent = `/${p.n}`;
-      center.innerHTML = `<span class="cix">${pad(i)}</span><span class="cnm">${p.n}</span><span class="cyr">${p.y} · ${p.t}</span>`;
-    } else {
-      label.textContent = '/Proyecto';
-      center.innerHTML = `<span class="cplus">+</span><span class="cyr">2022 → 2026 · arrastra o pasa por encima</span>`;
-    }
   }
-  setHover(-1);
+  setHover(-1); showFocus(-1);
 
   const tmp = new THREE.Vector3();
+  let lx = 0, ly = 0, pa = 0, lastDeg = -1;
   function frame() {
     requestAnimationFrame(frame);
     if (document.body.classList.contains('is-index') || document.hidden) return;
@@ -285,23 +338,114 @@ function start() {
 
     if (hasMouse && !dragging) {
       ray.setFromCamera(mouse, camera);
-      const hit = ray.intersectObjects(cards)[0];
-      setHover(hit ? hit.object.userData.i : -1);
+      const hs = ray.intersectObjects(hits);
+      const keep = hs.some((h) => h.object.userData.i === hovered);
+      setHover(keep ? hovered : (hs[0] ? hs[0].object.userData.i : -1));
     }
 
     cards.forEach((c) => {
       const u = c.userData;
       const a = u.base + angle;
-      u.hover += ((u.i === hovered ? 1 : 0) - u.hover) * .14;
+      u.hover += ((u.i === hovered ? 1 : (!hasMouse && u.i === sel ? .55 : 0)) - u.hover) * .14;
       const rr = R * (1 + u.hover * .06);
       c.position.set(Math.cos(a) * rr, Math.sin(a) * rr, u.hover * .9);
       const tilt = .55 * (1 - u.hover);
       c.rotation.set(Math.sin(a) * tilt * .6, -Math.cos(a) * tilt, (a - Math.PI / 2) * .5 * (1 - u.hover * .8), 'XYZ');
-      const s = cardScale * u.s * (1 + u.hover * .9);
+      const s = cardScale * u.s * (PROJECTS[u.i].main ? 1.2 : 1) * (1 + u.hover * (PROJECTS[u.i].main ? .7 : .9));
       c.scale.set(s, s, 1);
       c.renderOrder = u.hover > .05 ? 2 : 1;
       c.material.depthTest = u.hover < .05;
+      const hb = hits[u.i], ms = PROJECTS[u.i].main ? 1.2 : 1;
+      hb.position.set(Math.cos(a) * R, Math.sin(a) * R, 0);
+      hb.rotation.set(Math.sin(a) * .55 * .6, -Math.cos(a) * .55, (a - Math.PI / 2) * .5, 'XYZ');
+      const hsc = Math.max(.001, cardScale * u.s * ms * (1 + u.hover * .45));
+      hb.scale.set(hsc, hsc, 1);
     });
+
+    /* arco de IApyme: el proyecto matriz y lo que cuelga de él */
+    {
+      const half = (k) => cardPx * (PROJECTS[k].main ? 1.2 : 1) * .5 / Math.max(Rpx, 1);
+      const a0 = cards[G0].userData.base + angle + half(G0) + .04, a1 = cards[G1].userData.base + angle - half(G1) - .04;
+      const rA = inside ? Rpx + cardPx * .66 + 18 : Rpx - cardPx * .64 - 10;
+      const P = (a, r) => `${(W2 + r * Math.cos(a)).toFixed(1)} ${(H2 - r * Math.sin(a)).toFixed(1)}`;
+      /* arco dibujado por puntos: sin la ambigüedad del comando A de SVG cerca de 180° */
+      const arcPts = (from, to, r) => { const n = 48; let d = ''; for (let k = 0; k <= n; k++) { const a = from + (to - from) * k / n; d += (k ? 'L' : 'M') + P(a, r); } return d; };
+      const vis = cards[G1].userData.s > .3;
+      grpArc.setAttribute('d', vis ? arcPts(a0, a1, rA) : '');
+      const am = (a0 + a1) / 2, sm = Math.sin(am), low = sm < 0;
+      const rT = rA + (low ? 19 : 8);
+      grpTP.setAttribute('d', low ? arcPts(a1, a0, rT) : arcPts(a0, a1, rT));
+      grpTxt.style.opacity = Math.min(1, Math.max(0, (Math.abs(sm) - .12) / .2)).toFixed(2);
+      const fp = focus > -1 ? PROJECTS[focus] : null;
+      const line = fp && fp.g ? new Set([...(fp.path || []), fp.id]) : null;
+      dots.forEach((d, j) => {
+        const k = G0 + j, a = cards[k].userData.base + angle;
+        const [x, y] = P(a, rA).split(' ');
+        d.setAttribute('cx', x); d.setAttribute('cy', y);
+        d.classList.toggle('on', !!line && line.has(PROJECTS[k].id));
+        d.style.opacity = cards[k].userData.s;
+      });
+      grp.classList.toggle('hot', !!line);
+      grp.classList.toggle('lab', inside);
+    }
+
+    /* el retrato mira y señala */
+    if (!hasMouse) {
+      let best = 1e9;
+      cards.forEach((c) => { const a = c.userData.base + angle - Math.PI / 2; const d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a))); if (d < best) { best = d; sel = c.userData.i; } });
+    } else sel = -1;
+    const fi = hovered > -1 ? hovered : sel;
+    showFocus(fi);
+    let tx, ty, aim = false;
+    if (fi > -1) {
+      const c = cards[fi];
+      tmp.copy(c.position).project(camera);
+      tx = (tmp.x * .5 + .5) * W2 * 2; ty = (-tmp.y * .5 + .5) * H2 * 2; aim = true;
+    } else if (hasMouse && mouse.x < 5) { tx = mx; ty = my; }
+    else { tx = W2; ty = H2 - Rpx; }
+    const dx = tx - W2, dy = ty - H2, dist = Math.hypot(dx, dy) || 1;
+    const st = Math.min(1, dist / Math.max(Rpx, 1));
+    lx += (dx / dist * st - lx) * .09; ly += (dy / dist * st - ly) * .09;
+    pfs.style.transform = `rotateY(${lx * 18}deg) rotateX(${-ly * 18}deg)`;
+    layers.forEach((l) => l.g.setAttribute('transform', `translate(${(lx * l.k * 1.5).toFixed(2)} ${(ly * l.k * 1.5).toFixed(2)})`));
+    const ta = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+    let da = ta - pa; da = ((da + 540) % 360) - 180; pa += da * .15;
+    pfPtr.setAttribute('transform', `rotate(${pa.toFixed(2)} 400 400)`);
+    const deg = ((Math.round(pa) % 360) + 360) % 360;
+    if (deg !== lastDeg) { lastDeg = deg; pfRead.textContent = `LOOK ${String(deg).padStart(3, '0')}°`; }
+    if (aim && cards[fi].scale.x > .05) {
+      const c = cards[fi];
+      c.updateMatrixWorld();
+      const P = [[-.5, -.375], [.5, -.375], [.5, .375], [-.5, .375]].map(([x, y]) => { tmp.set(x, y, 0); c.localToWorld(tmp); tmp.project(camera); return [(tmp.x * .5 + .5) * W2 * 2, (-tmp.y * .5 + .5) * H2 * 2]; });
+      const gx = P.reduce((a, p) => a + p[0], 0) / 4, gy = P.reduce((a, p) => a + p[1], 0) / 4;
+      const Q = P.map(([x, y]) => [gx + (x - gx) * 1.07, gy + (y - gy) * 1.07]);
+      let d = '';
+      Q.forEach((q, k) => {
+        const a = Q[(k + 3) % 4], b = Q[(k + 1) % 4];
+        const ua = Math.hypot(a[0] - q[0], a[1] - q[1]), ub = Math.hypot(b[0] - q[0], b[1] - q[1]);
+        if (ua < 1 || ub < 1) return;
+        const L = Math.min(18, ua * .25);
+        d += `M${(q[0] + (a[0] - q[0]) / ua * L).toFixed(1)} ${(q[1] + (a[1] - q[1]) / ua * L).toFixed(1)}L${q[0].toFixed(1)} ${q[1].toFixed(1)}L${(q[0] + (b[0] - q[0]) / ub * L).toFixed(1)} ${(q[1] + (b[1] - q[1]) / ub * L).toFixed(1)}`;
+      });
+      beamRet.setAttribute('d', d);
+      const nx = dx / dist, ny = dy / dist;
+      const r0 = pfd * .49 + 6;
+      /* fin de la línea: borde del recuadro en la dirección del centro */
+      let tEnd = dist;
+      for (let k = 0; k < 4; k++) {
+        const A = Q[k], B = Q[(k + 1) % 4];
+        const ex = B[0] - A[0], ey = B[1] - A[1];
+        const den = nx * ey - ny * ex; if (Math.abs(den) < 1e-6) continue;
+        const t = ((A[0] - W2) * ey - (A[1] - H2) * ex) / den;
+        const u2 = ((A[0] - W2) * ny - (A[1] - H2) * nx) / den;
+        if (t > 0 && u2 >= 0 && u2 <= 1 && t < tEnd) tEnd = t;
+      }
+      if (tEnd > r0 + 2) {
+        beamLine.setAttribute('d', `M${(W2 + nx * r0).toFixed(1)} ${(H2 + ny * r0).toFixed(1)}L${(W2 + nx * tEnd).toFixed(1)} ${(H2 + ny * tEnd).toFixed(1)}`);
+        beamDot.setAttribute('cx', (W2 + nx * tEnd).toFixed(1)); beamDot.setAttribute('cy', (H2 + ny * tEnd).toFixed(1));
+      } else { beamLine.setAttribute('d', ''); beamDot.setAttribute('cx', -99); }
+    }
+    beam.classList.toggle('on', aim && cards[fi].scale.x > .05);
 
     const dr = dial.getBoundingClientRect();
     const am = Math.atan2(my - (dr.top + dr.height / 2), mx - (dr.left + dr.width / 2)) * 180 / Math.PI - 90;
