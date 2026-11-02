@@ -7,9 +7,7 @@ const PROJECTS = [
   { id: 'leinn',       n: 'LEINN · RIVIA',            y: '2023',            t: 'Formación' },
   { id: 'berlanga',    n: 'Bar de Berlanga de Duero', y: '2024 · 2025',     t: 'Licitación' },
   { id: 'frezzyks',    n: 'Frezzyks',                 y: 'Dic 2024',        t: 'Retail' },
-  { id: 'slingdog',    n: 'Slingdog',                 y: 'En paralelo',     t: 'Producto' },
-  { id: 'nueva-york',  n: 'Nueva York',               y: 'Ene–mar 2025',    t: 'Economía social' },
-  { id: 'asett',       n: 'Foro ASETT',               y: 'Mayo 2025',       t: 'Ponencia' },
+  { id: 'nueva-york',  n: 'Nueva York y ASETT',       y: 'Ene–may 2025',    t: 'Economía social · ponente' },
   { id: 'iapyme',      n: 'IApyme Consultores',       y: 'Abr 2025 → hoy',  t: 'Cofundador · CEO', main: true },
   { id: 'impulso',     n: 'Impulso Digital',          y: 'May 2025 → ene 2026', t: 'Consultoría', path: ['iapyme'] },
   { id: 'baranano',    n: 'Licores Barañano',         y: '2025 → hoy',      t: 'Software a medida', path: ['iapyme', 'impulso'] },
@@ -17,10 +15,15 @@ const PROJECTS = [
   { id: 'scarpa',      n: 'SCARPA',                   y: 'Sep 2026',        t: 'Shopify', path: ['iapyme'] },
   { id: 'gorobel',     n: 'Gorobel Kirol Gunea',      y: 'Oct 2026',        t: 'Consultoría', path: ['iapyme', 'impulso'] },
   { id: 'alambique',   n: 'Alambique',                y: 'Oct 2026 → hoy',  t: 'SaaS · MVP', path: ['iapyme', 'impulso', 'baranano'] },
+  { id: 'internacional', n: 'Internacional',          y: 'Inglés C1',       t: 'Idiomas y viajes', x: true },
+  { id: 'equipo',      n: 'Equipo',                   y: 'Con quién',       t: 'Liderazgo y testimonios', x: true },
+  { id: 'herramientas', n: 'Herramientas',            y: 'Con qué',         t: 'Hard skills', x: true },
 ];
 PROJECTS.forEach((p) => { p.img = `img/k_${p.id}.jpg`; p.g = !!(p.main || p.path); });
 const G0 = PROJECTS.findIndex((p) => p.g), G1 = PROJECTS.length - 1 - [...PROJECTS].reverse().findIndex((p) => p.g);
 const byId = (id) => PROJECTS.findIndex((p) => p.id === id);
+const NP = PROJECTS.filter((p) => !p.x).length, X0 = PROJECTS.findIndex((p) => p.x);
+const num = (i) => PROJECTS[i].x ? 'Extra' : `${pad(i)} / ${String(NP).padStart(2, '0')}`;
 const N = PROJECTS.length;
 let vel = 0;
 const pad = (i) => String(i + 1).padStart(2, '0');
@@ -43,18 +46,18 @@ $('#themeBtn').addEventListener('click', toggleTheme);
 const nav = $('#projList');
 const gridEl = $('#indexGrid');
 PROJECTS.forEach((p, i) => {
-  if (i === 0 || i === G0) {
+  if (i === 0 || i === G0 || i === X0) {
     const h = document.createElement('p');
     h.className = 'igh';
-    h.innerHTML = i === 0 ? '<b>Antes de IApyme</b><span>2022 → 2025 · lo que me trajo hasta aquí</span>' : '<b>IApyme Consultores</b><span>El proyecto principal y todo lo que ha salido de él</span>';
+    h.innerHTML = i === 0 ? '<b>Antes de IApyme</b><span>2022 → 2025 · lo que me trajo hasta aquí</span>' : i === G0 ? '<b>IApyme Consultores</b><span>El proyecto principal y todo lo que ha salido de él</span>' : '<b>Cómo trabajo</b><span>Idiomas, equipo y herramientas</span>';
     gridEl.appendChild(h);
   }
   const li = document.createElement('li');
-  li.innerHTML = `<button type="button" data-i="${i}"><span class="ix">${pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></button>`;
+  li.innerHTML = `<button type="button" data-i="${i}"><span class="ix">${p.x ? '+' : pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></button>`;
   nav.appendChild(li);
   const card = document.createElement('button');
   card.type = 'button'; card.className = 'icard' + (p.main ? ' main' : ''); card.dataset.i = i;
-  card.innerHTML = `<span class="ic"><img src="${p.img}" alt="" loading="lazy" ></span><span class="il"><span class="ix">${pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></span>`;
+  card.innerHTML = `<span class="ic"><img src="${p.img}" alt="" loading="lazy" ></span><span class="il"><span class="ix">${p.x ? '+' : pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></span>`;
   gridEl.appendChild(card);
 });
 document.addEventListener('click', (e) => {
@@ -63,6 +66,16 @@ document.addEventListener('click', (e) => {
   const b = e.target.closest('[data-i]');
   if (b && (b.closest('#projList') || b.closest('#indexGrid'))) openCase(+b.dataset.i);
 });
+
+/* el título grande de cada ficha se ajusta para que ninguna palabra se salga del panel */
+function fitTitle() {
+  const h = document.querySelector('#panelBody h3');
+  if (!h) return;
+  h.style.fontSize = '';
+  let f = parseFloat(getComputedStyle(h).fontSize);
+  while (h.scrollWidth > h.clientWidth + 1 && f > 18) { f -= 1.5; h.style.fontSize = f + 'px'; }
+}
+addEventListener('resize', () => { if (document.getElementById('panel').open) fitTitle(); });
 
 /* panel */
 const dlg = $('#panel'), body = $('#panelBody'), pix = $('#panelIx');
@@ -78,9 +91,10 @@ function openCase(i, fromHash) {
     nav.innerHTML = p.path.map((id) => `<button type="button" data-open="${id}">${PROJECTS[byId(id)].n}</button>`).join('<span aria-hidden="true">→</span>') + `<span aria-hidden="true">→</span><b>${p.n}</b>`;
     body.prepend(nav);
   }
-  pix.textContent = `${pad(cur)} / ${pad(N - 1)}`;
+  pix.textContent = num(cur);
   $('#panelNav').hidden = false;
   if (!dlg.open) dlg.showModal();
+  fitTitle();
   body.parentElement.scrollTop = 0;
   if (!fromHash) { try { history.replaceState(null, '', '#' + p.id); } catch (e) {} }
 }
@@ -90,6 +104,7 @@ function openPage(id) {
   pix.textContent = id === 'tpl-about' ? 'Sobre mí' : 'Contacto';
   $('#panelNav').hidden = true;
   if (!dlg.open) dlg.showModal();
+  fitTitle();
   body.parentElement.scrollTop = 0;
   try { history.replaceState(null, '', '#' + (id === 'tpl-about' ? 'sobre-mi' : 'contacto')); } catch (e) {}
 }
@@ -312,10 +327,10 @@ function start() {
       const p = PROJECTS[i];
       label.textContent = `/${p.n}`;
       const chip = p.main ? '<span class="cgrp">Proyecto matriz</span>' : (p.g ? '<span class="cgrp">IApyme</span>' : '');
-      center.innerHTML = `<span class="crow"><span class="cix">${pad(i)} / ${String(N).padStart(2, '0')}</span>${chip}</span><span class="cnm">${p.n}</span><span class="cyr">${p.y} · ${p.t}</span>`;
+      center.innerHTML = `<span class="crow"><span class="cix">${num(i)}</span>${chip}</span><span class="cnm">${p.n}</span><span class="cyr">${p.y} · ${p.t}</span>`;
     } else {
       label.textContent = '/Proyecto';
-      center.innerHTML = `<span class="cnm">Iker García</span><span class="cyr"><span class="cme">Portfolio personal</span></span><span class="cyr">${N} proyectos · 2022 → 2026</span>`;
+      center.innerHTML = `<span class="cnm">Iker García</span><span class="cyr"><span class="cme">Portfolio personal</span></span><span class="cyr">${NP} proyectos · 2022 → 2026</span>`;
     }
   }
   function setHover(i) {
