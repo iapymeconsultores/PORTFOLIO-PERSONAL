@@ -16,7 +16,6 @@ const PROJECTS = [
   { id: 'gorobel',     n: 'Gorobel Kirol Gunea',      y: 'Oct 2026',        t: 'Consultoría', path: ['iapyme', 'impulso'] },
   { id: 'alambique',   n: 'Alambique',                y: 'Oct 2026 → hoy',  t: 'SaaS · MVP', path: ['iapyme', 'impulso', 'baranano'] },
   { id: 'internacional', n: 'Internacional',          y: 'Inglés C1',       t: 'Idiomas y viajes', x: true },
-  { id: 'equipo',      n: 'Equipo',                   y: 'Con quién',       t: 'Liderazgo y testimonios', x: true },
   { id: 'herramientas', n: 'Herramientas',            y: 'Con qué',         t: 'Hard skills', x: true },
 ];
 PROJECTS.forEach((p) => { p.img = `img/k_${p.id}.jpg`; p.g = !!(p.main || p.path); });
@@ -49,7 +48,7 @@ PROJECTS.forEach((p, i) => {
   if (i === 0 || i === G0 || i === X0) {
     const h = document.createElement('p');
     h.className = 'igh';
-    h.innerHTML = i === 0 ? '<b>Antes de IApyme</b><span>2022 → 2025 · lo que me trajo hasta aquí</span>' : i === G0 ? '<b>IApyme Consultores</b><span>El proyecto principal y todo lo que ha salido de él</span>' : '<b>Cómo trabajo</b><span>Idiomas, equipo y herramientas</span>';
+    h.innerHTML = i === 0 ? '<b>Antes de IApyme</b><span>2022 → 2025 · lo que me trajo hasta aquí</span>' : i === G0 ? '<b>IApyme Consultores</b><span>El proyecto principal y todo lo que ha salido de él</span>' : '<b>Cómo trabajo</b><span>Idiomas, viajes y herramientas</span>';
     gridEl.appendChild(h);
   }
   const li = document.createElement('li');
