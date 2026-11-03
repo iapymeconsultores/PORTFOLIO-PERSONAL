@@ -259,6 +259,18 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .sectors span{font-size:.86rem;color:var(--soft);line-height:1.35;display:block}
 .pbody .srcnote{margin:-14px 0 24px}
 @media (max-width:700px){.pbody .bars > div{grid-template-columns:1fr auto}.pbody .bars .bk{grid-column:1/-1}}
+.pbody .stairs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;align-items:end;height:clamp(17rem,40cqi,22rem);margin:12px 0 26px}
+.pbody .stairs .st{all:unset;box-sizing:border-box;height:calc(44% + (var(--h) - 1) * 14%);display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:.75rem .7rem;background:var(--card);border-top:4px solid var(--ink);min-width:0}
+.pbody .stairs button.st{cursor:pointer;transition:background .2s,color .2s}
+.pbody .stairs button.st:hover{background:var(--ink);color:var(--bg)}
+.pbody .stairs button.st:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.pbody .stairs .st:last-child{background:var(--mark);color:var(--mark-ink);border-top-color:var(--ink)}
+.pbody .stairs .st:last-child:hover{background:var(--ink);color:var(--bg)}
+.pbody .stairs .sn{font-family:var(--f-mono);font-size:.7rem;opacity:.6;margin-bottom:auto}
+.pbody .stairs b{font-weight:900;font-variation-settings:"wdth" 100;text-transform:uppercase;font-size:clamp(.78rem,1.5cqi,1rem);line-height:1.05}
+.pbody .stairs .sd{font-size:.8rem;line-height:1.25;opacity:.75}
+.pbody .stairs .se{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;font-weight:700}
+@media (max-width:700px){.pbody .stairs{grid-template-columns:1fr;height:auto;align-items:stretch}.pbody .stairs .st{height:auto;width:calc(52% + (var(--h) - 1) * 12%);border-top:0;border-left:4px solid var(--ink)}.pbody .stairs .sn{margin-bottom:0}}
 .pbody .funnel{display:grid;gap:8px;margin:14px 0 22px}
 .pbody .funnel > div{display:grid;grid-template-columns:140px minmax(0,1fr);gap:4px 14px;align-items:center}
 .pbody .funnel .fl{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;color:var(--soft)}
@@ -500,7 +512,9 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
       <h3>IApyme Consultores</h3>
       <div class="meta"><span>Abr 2025 → hoy</span><span>Cofundador y CEO</span><span>Con Oier Pérez</span><span>Bilbao</span></div>
       <p>Consultora de inteligencia artificial para pymes con poca digitalización. Entre los dos cubrimos todo el ciclo: vendemos, diseñamos y construimos. Empezamos como consultores que analizan y se van, y cambiamos el enfoque: ahora funcionamos como el departamento de IA de la empresa y nos quedamos hasta que el equipo usa las herramientas en su día a día.</p>
-      <div class="kpi"><div><strong>+50</strong><span>empresas atendidas</span></div><div><strong>+150</strong><span>personas formadas</span></div><div><strong>3 → 5 cifras</strong><span>por contrato, del taller al proyecto a medida</span></div></div>
+      <div class="kpi"><div><strong>+50</strong><span>empresas atendidas</span></div><div><strong>+150</strong><span>personas formadas</span></div><div><strong>4</strong><span>países: España, México, India y Corea</span></div></div>
+      <p class="mono soft">Del taller al producto propio</p>
+      <div class="stairs"><div class="st" style="--h:1"><span class="sn">1</span><b>Taller</b><span class="sd">Webinars y sesiones sueltas</span><span class="se">Gaztenpresa</span></div><button type="button" class="st" style="--h:2" data-open="impulso"><span class="sn">2</span><b>Formación</b><span class="sd">Cursos para equipos enteros</span><span class="se">Impulso Digital →</span></button><button type="button" class="st" style="--h:3" data-open="gorobel"><span class="sn">3</span><b>Automatización</b><span class="sd">Procesos resueltos con lo que ya tiene el cliente</span><span class="se">Gorobel →</span></button><button type="button" class="st" style="--h:4" data-open="baranano"><span class="sn">4</span><b>Software a medida</b><span class="sd">Herramientas con base de datos</span><span class="se">Licores Barañano →</span></button><button type="button" class="st" style="--h:5" data-open="alambique"><span class="sn">5</span><b>Producto propio</b><span class="sd">Un SaaS para todo un sector</span><span class="se">Alambique →</span></button></div>
       <p class="mono soft">Cómo se conecta todo</p>
       <p>IApyme es el proyecto principal. Lo que viene después en este portfolio sale de aquí, y casi todo empieza en Impulso Digital: allí conocimos a Gorobel y a Licores Barañano, y trabajando para Barañano nació Alambique.</p>
       <div class="tree">
