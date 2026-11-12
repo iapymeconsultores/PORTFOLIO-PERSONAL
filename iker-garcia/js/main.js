@@ -365,14 +365,15 @@ function start() {
       const rr = R * (1 + u.hover * .06);
       c.position.set(Math.cos(a) * rr, Math.sin(a) * rr, u.hover * .9);
       const tilt = .55 * (1 - u.hover);
-      c.rotation.set(Math.sin(a) * tilt * .6, -Math.cos(a) * tilt, (a - Math.PI / 2) * .5 * (1 - u.hover * .8), 'XYZ');
+      /* inclinación según la posición en el anillo, nunca según las vueltas acumuladas */
+      c.rotation.set(Math.sin(a) * tilt * .6, -Math.cos(a) * tilt, -Math.cos(a) * .45 * (1 - u.hover), 'XYZ');
       const s = cardScale * u.s * (PROJECTS[u.i].main ? 1.2 : 1) * (1 + u.hover * (PROJECTS[u.i].main ? .7 : .9));
       c.scale.set(s, s, 1);
       c.renderOrder = u.hover > .05 ? 2 : 1;
       c.material.depthTest = u.hover < .05;
       const hb = hits[u.i], ms = PROJECTS[u.i].main ? 1.2 : 1;
       hb.position.set(Math.cos(a) * R, Math.sin(a) * R, 0);
-      hb.rotation.set(Math.sin(a) * .55 * .6, -Math.cos(a) * .55, (a - Math.PI / 2) * .5, 'XYZ');
+      hb.rotation.set(Math.sin(a) * .55 * .6, -Math.cos(a) * .55, -Math.cos(a) * .45, 'XYZ');
       const hsc = Math.max(.001, cardScale * u.s * ms * (1 + u.hover * .45));
       hb.scale.set(hsc, hsc, 1);
     });
