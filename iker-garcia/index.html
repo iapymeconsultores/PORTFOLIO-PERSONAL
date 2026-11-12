@@ -177,10 +177,10 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
 .pbody .meta span{border:1px solid var(--ink);padding:3px 8px;font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.03em}
 .pbody p{max-width:64ch;margin:0 0 .9em;font-size:1.05rem}
-.pbody .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:22px 0}
-.pbody .kpi div{padding:14px 14px 12px 0;min-width:0}
+.pbody .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:22px 0}
+.pbody .kpi div{padding:14px 14px 12px 0;min-width:0;container-type:inline-size}
 .pbody .kpi div + div{border-left:1px solid var(--line);padding-left:14px}
-.pbody .kpi strong{display:block;white-space:nowrap;font-weight:900;font-variation-settings:"wdth" 110;font-size:clamp(1.5rem,3.3cqi,2.2rem);line-height:1;font-variant-numeric:tabular-nums}
+.pbody .kpi strong{display:block;white-space:nowrap;font-weight:900;font-variation-settings:"wdth" 110;font-size:min(2.2rem,14cqi);line-height:1;font-variant-numeric:tabular-nums}
 .pbody .kpi span{font-size:.86rem;color:var(--soft)}
 .pbody .gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0}
 .pbody .gal figure{margin:0;min-width:0}
