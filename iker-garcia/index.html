@@ -187,14 +187,27 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .gal figure.w{grid-column:1/-1}
 .pbody .gal img{width:100%;object-fit:cover}
 .pbody .gal figcaption{margin-top:5px}
+.pbody figure img{cursor:zoom-in}
+.panel .lb{position:fixed;inset:0;z-index:50;background:rgba(10,11,12,.92);overflow:auto;cursor:zoom-out;display:flex;justify-content:center;align-items:flex-start;padding:64px 16px 32px}
+.panel .lb[hidden]{display:none}
+.panel .lbin{max-width:min(1500px,100%);margin:auto 0}
+.panel .lb img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff}
+.panel .lb p{color:#ECECE6;margin:10px 0 0;text-align:center}
+.panel .lbx{position:fixed;top:12px;right:12px;z-index:2;cursor:pointer}
+.panel .demo{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column}
+.panel .demo[hidden]{display:none}
+.panel .dmbar{display:flex;align-items:center;gap:6px;padding:8px 8px 8px 16px;border-bottom:2px solid var(--ink);background:var(--bg)}
+.panel .dmt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.74rem;text-transform:uppercase}
+.panel .demo iframe{flex:1;width:100%;border:0;background:#fff}
+@media (max-width:700px){.panel .dmo{display:none}}
 .pbody .src{margin-top:18px;display:flex;flex-direction:column;gap:6px}
 .pbody .src a{font-family:var(--f-mono);font-size:.74rem;text-underline-offset:3px;text-decoration-color:var(--mark);text-decoration-thickness:2px}
 .pbody .about-top > div{container-type:inline-size}
 .pbody .about-top{display:grid;grid-template-columns:minmax(0,1fr) 13.75rem;gap:24px;align-items:end}
 .pbody .about-top img{filter:grayscale(1);aspect-ratio:4/5;object-fit:cover;object-position:30% 30%}
 .pbody ol.path{list-style:none;margin:20px 0;padding:0;border-top:1px solid var(--ink)}
-.pbody ol.path li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
-.pbody ol.path li span{font-family:var(--f-mono);font-size:.74rem;text-transform:uppercase;color:var(--soft);padding-top:3px}
+.pbody ol.path li{display:grid;grid-template-columns:minmax(120px,10.5rem) minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.pbody ol.path li span{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;color:var(--soft);padding-top:3px;hyphens:none;-webkit-hyphens:none;overflow-wrap:normal;word-break:normal}
 
 .pbody .tree{margin:12px 0 26px;font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
 .pbody .tree .t0{display:inline-block;background:var(--ink);color:var(--bg);padding:6px 10px;font-weight:700}
@@ -267,7 +280,7 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .stairs .st:last-child{background:var(--mark);color:var(--mark-ink);border-top-color:var(--ink)}
 .pbody .stairs .st:last-child:hover{background:var(--ink);color:var(--bg)}
 .pbody .stairs .sn{font-family:var(--f-mono);font-size:.7rem;opacity:.6;margin-bottom:auto}
-.pbody .stairs b{font-weight:900;font-variation-settings:"wdth" 100;text-transform:uppercase;font-size:clamp(.78rem,1.5cqi,1rem);line-height:1.05}
+.pbody .stairs b{font-weight:900;font-variation-settings:"wdth" 78;text-transform:uppercase;font-size:clamp(.72rem,1.6cqi,1rem);line-height:1.05;hyphens:none;-webkit-hyphens:none;overflow-wrap:normal;word-break:keep-all}
 .pbody .stairs .sd{font-size:.8rem;line-height:1.25;opacity:.75}
 .pbody .stairs .se{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;font-weight:700}
 @media (max-width:700px){.pbody .stairs{grid-template-columns:1fr;height:auto;align-items:stretch}.pbody .stairs .st{height:auto;width:calc(52% + (var(--h) - 1) * 12%);border-top:0;border-left:4px solid var(--ink)}.pbody .stairs .sn{margin-bottom:0}}
@@ -285,6 +298,184 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 .pbody .tst img{width:100%;aspect-ratio:640/1104;object-fit:cover;background:#000}
 .pbody .tst figcaption{display:flex;flex-direction:column;gap:4px;padding:10px 4px 4px}
 .pbody .tst q{font-weight:700;font-size:.98rem;line-height:1.25}
+
+/* guía de entrada: por dónde empezar */
+.guide{position:fixed;z-index:15;left:var(--sl);top:calc(4.4rem + var(--st));width:17.5rem;background:var(--card);padding:1rem 1rem .85rem;border-top:4px solid var(--ink)}
+.guide h2{margin:0 0 .25rem;font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;font-size:1.2rem;line-height:1}
+.guide .gl{margin:0 0 .75rem;font-size:.84rem;color:var(--soft);line-height:1.35}
+.guide ol{list-style:none;margin:0 0 .75rem;padding:0;display:grid;gap:4px}
+.guide li button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:1.7rem minmax(0,1fr);column-gap:.6rem;align-items:center;padding:.45rem .55rem;border:1px solid var(--line);background:var(--bg);transition:border-color .2s}
+.guide li button:hover{border-color:var(--ink)}
+.guide li button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.guide .gn{grid-row:1/3;width:1.7rem;height:1.7rem;display:grid;place-items:center;background:var(--ink);color:var(--bg);font-family:var(--f-mono);font-size:.78rem;font-weight:700}
+.guide li.done .gn{background:var(--mark);color:var(--mark-ink)}
+.guide li.done .gn span{display:none}
+.guide li.done .gn::before{content:"✓"}
+.guide li b{font-size:.9rem;font-weight:800;line-height:1.15}
+.guide li small{font-size:.72rem;color:var(--soft);line-height:1.25}
+.startbtn{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:var(--mark);color:var(--mark-ink);padding:.8rem .9rem;transition:background .2s,color .2s}
+.startbtn b{font-weight:900;font-variation-settings:"wdth" 112;text-transform:uppercase;font-size:.95rem;line-height:1.1;text-align:left}
+.startbtn span{font-weight:900;font-size:1.2rem}
+.startbtn:hover{background:var(--ink);color:var(--bg)}
+.startbtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.guide .gcount{margin:.6rem 0 0;font-size:.66rem;line-height:1.4}
+.guide .gcount b{color:var(--ink)}
+body.is-index .guide,body.is-index .mbar,body.is-index .bl,body.is-index .br{display:none}
+.pf{margin-left:calc(var(--d) / -2 + var(--sx,0px))}.center{margin-left:var(--sx,0px)}.loader{margin-left:var(--sx,0px)}
+.mbar{display:none}
+.ixstart{max-width:24rem;margin:-18px 0 36px}
+@media (max-width:1000px),(max-height:620px){.guide{display:none}}
+@media (max-width:700px){
+  .mbar{display:flex;position:fixed;z-index:20;left:var(--sl);right:var(--sr);bottom:calc(12px + var(--sb));gap:6px}
+  .mbar .startbtn{flex:1;padding:.75rem .9rem}
+  .mbar .btn{height:auto}
+  .bl,.br{display:none}
+}
+
+/* el recorrido al final de cada ficha */
+.pbody .tour{margin-top:48px;padding-top:16px;border-top:2px solid var(--ink);display:grid;gap:10px}
+.pbody .tprog{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.pbody .tticks{display:flex;gap:3px;flex:1;min-width:9rem}
+.pbody .tticks i{flex:1;height:7px;background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.pbody .tticks i.v{background:var(--ink)}
+.pbody .tticks i.c{background:var(--mark);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.pbody .tnext{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:1rem;row-gap:.2rem;background:var(--mark);color:var(--mark-ink);padding:1rem 1.2rem;transition:background .2s,color .2s}
+.pbody .tnext b{font-weight:900;font-variation-settings:"wdth" 115;text-transform:uppercase;font-size:clamp(1.15rem,3.4cqi,1.8rem);line-height:1.05}
+.pbody .tnext .tar{grid-column:2;grid-row:1/3;font-size:2rem;font-weight:900;transition:transform .25s}
+.pbody .tnext:hover{background:var(--ink);color:var(--bg)}
+.pbody .tnext:hover .tar{transform:translateX(4px)}
+.pbody .tnext:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.pbody .tsub{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pbody .tsub button{all:unset;cursor:pointer;font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;text-decoration:underline;text-decoration-color:var(--mark);text-decoration-thickness:2px;text-underline-offset:4px}
+.pbody .tsub button:hover{color:var(--soft)}
+.pbody .tsub button:focus-visible{outline:2px solid var(--mark);outline-offset:3px}
+
+/* índice: número grande y vistos */
+.icard .ic{position:relative}
+.icard .ibig{position:absolute;right:0;top:0;background:#121315;color:#F2D20A;font-family:var(--f-mono);font-weight:700;font-size:1.3rem;line-height:1;padding:.35rem .55rem}
+.icard .iseen{display:none;position:absolute;right:0;bottom:0;background:var(--mark);color:var(--mark-ink);font-family:var(--f-mono);font-weight:700;font-size:.7rem;text-transform:uppercase;padding:.3rem .5rem}
+.icard .iseen::before{content:"✓ "}
+.icard.seen .iseen{display:block}
+
+/* piezas nuevas de las fichas */
+.pbody .doing{list-style:none;margin:12px 0 10px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:8px}
+.pbody .doing li{background:var(--card);padding:.8rem .9rem;border-top:4px solid var(--ink)}
+.pbody .doing li:nth-child(3n+1){border-top-color:var(--mark)}
+.pbody .doing b{display:block;font-family:var(--f-mono);font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+.pbody .doing span{font-size:.9rem;line-height:1.38;display:block}
+.pbody .game{margin:26px 0 30px;padding:1.1rem 1.2rem 1.2rem;background:#121315;color:#ECECE6}
+.pbody .game > .mono{color:#F2D20A;margin:0 0 .35rem}
+.pbody .game .gq{font-weight:800;font-variation-settings:"wdth" 108;font-size:clamp(1.1rem,3cqi,1.4rem);line-height:1.25;margin:0 0 1rem;max-width:none}
+.pbody .game .grow{display:flex;align-items:center;gap:1rem}
+.pbody .game input[type=range]{flex:1;min-width:0;accent-color:#F2D20A;height:2rem;cursor:pointer}
+.pbody .game output{font-family:var(--f-mono);font-weight:700;font-size:1.25rem;min-width:8.5rem;text-align:right;font-variant-numeric:tabular-nums}
+.pbody .game .gfoot{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:.8rem}
+.pbody .game .btn{background:#F2D20A;color:#121315}
+.pbody .game .btn:hover{background:#ECECE6}
+.pbody .game .gres{margin:0;font-size:1rem;max-width:none;flex:1;min-width:14rem}
+.pbody .game .gres b{font-weight:900;font-variation-settings:"wdth" 115;text-transform:uppercase;margin-right:.45rem;font-size:1.2rem}
+.pbody .game[data-r="ok"] .gres b{color:#F2D20A}
+.pbody .game .greveal{all:unset;cursor:pointer;color:#F2D20A;text-decoration:underline;text-underline-offset:3px}
+.pbody .game .greveal:focus-visible{outline:2px solid #F2D20A;outline-offset:2px}
+.pbody .game[data-r="near"] .gres b{color:#FFB15C}
+.pbody .game[data-r="far"] .gres b{color:#8FB8FF}
+.pbody .game.done[data-r="ok"]{box-shadow:inset 0 0 0 3px #F2D20A}
+.pbody .comp{list-style:none;margin:12px 0 26px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:8px}
+.pbody .comp li{background:var(--card);padding:.8rem .9rem;display:grid;align-content:start;row-gap:.2rem;grid-template-columns:2.1rem minmax(0,1fr);column-gap:.7rem;align-items:start}
+.pbody .comp svg{grid-row:1/3;width:2.1rem;height:2.1rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;background:var(--mark);color:var(--mark-ink);padding:.32rem;box-sizing:border-box}
+.pbody .comp b{font-weight:800;font-size:.95rem;line-height:1.2}
+.pbody .comp span{font-size:.82rem;color:var(--soft);line-height:1.3}
+.pbody figure.photo{margin:18px 0 22px;max-width:34rem}
+.pbody figure.photo.w{max-width:none}
+.pbody figure.photo img{width:100%}
+.pbody figure.photo figcaption{margin-top:6px}
+.pbody ol.mkt{list-style:none;margin:12px 0 22px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:none}
+.pbody .mkt li{background:var(--card);padding:1rem;border-top:4px solid var(--ink);display:flex;flex-direction:column;gap:.4rem;position:relative}
+.pbody .mkt li:last-child{border-top-color:var(--mark)}
+.pbody .mkt .mn{font-family:var(--f-mono);font-weight:700;font-size:2rem;line-height:1}
+.pbody .mkt b{font-weight:800;font-size:1.05rem;line-height:1.2}
+.pbody .mkt li > span:last-child{font-size:.9rem;line-height:1.4}
+.pbody .lcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0 24px}
+.pbody .lcards.two{margin-top:10px}
+.pbody .lcard{display:flex;flex-direction:column;background:var(--card);text-decoration:none;color:inherit;min-width:0;transition:background .2s,color .2s}
+.pbody a.lcard{box-shadow:inset 0 -3px 0 var(--mark)}
+.pbody a.lcard:hover{background:var(--ink);color:var(--bg)}
+.pbody .lcard img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.pbody .lcard .lt{display:flex;flex-direction:column;gap:.3rem;padding:.8rem .9rem 1rem}
+.pbody .lcard .lt .mono{color:var(--soft)}
+.pbody a.lcard:hover .lt .mono{color:inherit;opacity:.7}
+.pbody .lcard .lt b{font-weight:800;font-size:1rem;line-height:1.25}
+.pbody .lcard .go{font-family:var(--f-mono);font-size:.74rem;text-transform:uppercase;margin-top:.2rem;font-weight:700}
+.pbody .lcard.big{grid-column:1/-1}
+.pbody .lcards.three{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px}
+.pbody .lcards.three .lt b{font-size:.9rem}
+.pbody .fthumb{display:block;margin-top:.4rem;text-decoration:none;color:inherit;background:#fff;box-shadow:inset 0 -3px 0 var(--mark)}
+.pbody .fthumb img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:50% 8%;display:block}
+.pbody .fthumb span{display:block;padding:.55rem .7rem;color:#121315;font-weight:700}
+.pbody .fthumb:hover span{background:var(--ink);color:var(--bg)}
+.pbody .lcard.hero{margin:14px 0 0}
+.pbody .lcard.hero .lt{padding:1rem 1.1rem 1.2rem;gap:.5rem}
+.pbody .lcard.hero .lt b{font-size:clamp(1.3rem,3.8cqi,2.1rem);font-weight:900;font-variation-settings:"wdth" 115;text-transform:uppercase;line-height:1.02}
+.pbody .lcard.hero .go{align-self:flex-start;background:var(--mark);color:var(--mark-ink);padding:.7rem 1rem;font-size:.85rem}
+.pbody .lcard .ls{font-size:.95rem;line-height:1.4}
+.pbody .cta.case{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr) auto;gap:1.1rem;align-items:center;padding:.8rem;font-size:clamp(1.1rem,3.4cqi,1.7rem)}
+.pbody .cta.case img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;box-shadow:0 0 0 2px var(--mark-ink)}
+.pbody .cta.case > span:nth-child(2){display:flex;flex-direction:column;gap:.35rem}
+.pbody .cta.case .mono{font-weight:400;font-size:.72rem;letter-spacing:.04em}
+.pbody .cta.case small{font-family:var(--f-display);text-transform:none;font-weight:500;font-size:.92rem;font-variation-settings:"wdth" 100;line-height:1.3}
+.pbody .cta.case .tar{font-size:2rem}
+.pbody .duo,.pbody .tools2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 18px}
+.pbody .box{background:var(--card);padding:1rem 1.1rem;border-top:4px solid var(--ink);display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.pbody .box > .mono{margin:0;color:var(--soft)}
+.pbody .box > b{font-weight:900;font-variation-settings:"wdth" 112;text-transform:uppercase;font-size:1.2rem;line-height:1.1}
+.pbody .box p{margin:0;font-size:.95rem}
+.pbody .box .btn{align-self:flex-start;margin-top:.3rem;background:var(--bg)}
+.pbody .box .btn:hover{background:var(--ink)}
+.pbody dl.spec{margin:.2rem 0 0;display:grid;gap:.6rem}
+.pbody .box.peck{margin:14px 0 18px;border-top-color:var(--mark);max-width:44rem}
+.pbody dl.spec div{display:grid;grid-template-columns:5.8rem minmax(0,1fr);gap:.6rem}
+.pbody dl.spec dt{font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;color:var(--soft);padding-top:.2rem}
+.pbody dl.spec dd{margin:0;font-size:.92rem;line-height:1.4}
+.pbody .pairs{display:grid;margin:12px 0 26px;border-top:2px solid var(--ink)}
+.pbody .pairs > div{display:grid;grid-template-columns:10.5rem minmax(0,1fr) minmax(0,1fr);gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line);align-items:start}
+.pbody .pairs .ph{padding:.5rem 0}
+.pbody .pairs .ph span:first-child{grid-column:2}
+.pbody .pairs .ph span{font-size:.7rem!important;color:var(--soft);background:none!important;padding:0!important}
+.pbody .pairs b{font-weight:800;line-height:1.25}
+.pbody .pairs span{font-size:.92rem;line-height:1.4}
+.pbody .pairs > div:not(.ph) > span:last-child{background:color-mix(in srgb,var(--mark) 24%,transparent);padding:.35rem .55rem}
+.pbody .titlerow{display:grid;grid-template-columns:minmax(0,1fr) minmax(10rem,17rem);gap:1.2rem;align-items:start;margin-bottom:6px}
+.pbody .titlerow > div{min-width:0}
+.pbody .titlerow figure{margin:0 0 22px}
+.pbody .titlerow img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.pbody .titlerow figcaption{margin-top:5px}
+.pbody .live{display:flex;gap:.8rem;align-items:flex-start;background:var(--card);border-left:6px solid var(--mark);padding:.9rem 1rem;max-width:none;font-size:1rem}
+.pbody .live .dot{flex:none;width:.7rem;height:.7rem;border-radius:50%;background:#2FBF71;margin-top:.45rem;animation:live 1.8s infinite}
+@keyframes live{0%{box-shadow:0 0 0 0 rgba(47,191,113,.6)}70%{box-shadow:0 0 0 .6rem rgba(47,191,113,0)}100%{box-shadow:0 0 0 0 rgba(47,191,113,0)}}
+.pbody ol.vers{list-style:none;margin:12px 0 24px 6px;padding:0;border-left:3px solid var(--ink)}
+.pbody ol.vers li{position:relative;padding:0 0 .9rem 1.2rem;font-size:.95rem;line-height:1.4}
+.pbody ol.vers li::before{content:"";position:absolute;left:-9px;top:.25rem;width:15px;height:15px;background:var(--bg);border:3px solid var(--ink);border-radius:50%;box-sizing:border-box}
+.pbody ol.vers li:last-child::before{background:var(--mark)}
+.pbody ol.vers span{display:block;font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;color:var(--soft)}
+.pbody ol.vers b{font-weight:800;margin-right:.4rem}
+.pbody .xp{list-style:none;margin:16px 0 26px;padding:0;display:grid;gap:10px}
+.pbody .xp li{display:grid;grid-template-columns:4.6rem minmax(0,1fr) auto;gap:1rem;align-items:start;background:var(--card);padding:.9rem 1rem}
+.pbody .xp .lg{width:4.6rem;height:4.6rem;background:#fff;display:grid;place-items:center;padding:.55rem;box-sizing:border-box}
+.pbody .xp .lg img{max-width:100%;max-height:100%;object-fit:contain;width:100%}
+.pbody .xp .lg.t{background:#121315;color:#F2D20A;font-family:var(--f-mono);font-weight:700;font-size:.6rem;text-transform:uppercase;text-align:center;line-height:1.2;letter-spacing:.02em}
+.pbody .xp b{font-weight:800;font-size:1.05rem;display:block;line-height:1.2}
+.pbody .xp .role{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;color:var(--soft)}
+.pbody .xp p{margin:.35rem 0 0;font-size:.94rem}
+.pbody .xp .when{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;white-space:nowrap;background:var(--bg);padding:.2rem .45rem}
+@media (max-width:700px){
+  .pbody ol.mkt,.pbody .lcards,.pbody .lcards.three,.pbody .duo,.pbody .tools2{grid-template-columns:1fr}
+  .pbody .cta.case{grid-template-columns:1fr auto}.pbody .cta.case img{grid-column:1/-1}
+  .pbody .pairs > div{grid-template-columns:1fr;gap:.35rem}.pbody .pairs .ph{display:none}
+  .pbody .titlerow{grid-template-columns:1fr}.pbody .titlerow figure{max-width:20rem}
+  .pbody .xp li{grid-template-columns:3.4rem minmax(0,1fr)}.pbody .xp .lg{width:3.4rem;height:3.4rem}.pbody .xp .lg.t{font-size:.48rem;padding:.3rem}.pbody .xp .when{grid-column:2;justify-self:start}
+  .pbody dl.spec div{grid-template-columns:1fr;gap:.15rem}
+  .pbody .game .grow{flex-wrap:wrap}.pbody .game output{min-width:0}
+}
 @media (max-width:700px){
   .top .hide-s{display:none}
   .btn{height:40px;padding:0 12px}
@@ -315,6 +506,7 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
   <a class="id" href="#" aria-label="Iker García, inicio">Iker García<span>Portfolio personal</span></a>
   <nav aria-label="Controles">
     <button class="btn hide-s" id="aboutBtn" type="button">Sobre mí</button>
+    <button class="btn hide-s" id="expBtn" type="button">Experiencia</button>
     <button class="btn hide-s" id="contactBtn" type="button">Contacto</button>
     <button class="btn" id="layoutBtn" type="button" aria-pressed="false" title="Cambiar vista (L)">Índice <kbd>L</kbd></button>
     <button class="btn ico" id="themeBtn" type="button" title="Cambiar tema (T)" aria-label="Cambiar tema">
@@ -362,10 +554,24 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 
 <nav class="sr" aria-label="Proyectos"><ol id="projList"></ol></nav>
 
+<aside class="guide" id="guide" aria-label="Cómo ver este portfolio">
+  <h2>Cómo verlo</h2>
+  <p class="gl">Doce proyectos de 2022 a 2026. Síguelos en orden o pulsa cualquier tarjeta de la rueda.</p>
+  <ol>
+    <li data-step="about"><button type="button" data-tour="@about"><span class="gn"><span>1</span></span><b>Quién soy</b><small>Sobre mí y experiencia</small></button></li>
+    <li data-step="work"><button type="button" data-tour="dripzone"><span class="gn"><span>2</span></span><b>Los 12 proyectos</b><small>De Dripzone (2022) a Alambique (2026)</small></button></li>
+    <li data-step="contact"><button type="button" data-tour="@contact"><span class="gn"><span>3</span></span><b>Hablemos</b><small>Contacto</small></button></li>
+  </ol>
+  <button type="button" class="startbtn" data-tour-start><b>Empezar el recorrido</b><span aria-hidden="true">→</span></button>
+  <p class="mono soft gcount">Vistos <b data-seen-n>0</b> de 12 · en la rueda, los vistos llevan ✓</p>
+</aside>
+<div class="mbar"><button type="button" class="startbtn" data-tour-start><b>Empezar el recorrido</b><span aria-hidden="true">→</span></button><button type="button" class="btn" data-tour="@about">Sobre mí</button></div>
+
 <section class="index" aria-label="Índice de proyectos">
   <p class="mono soft">/ Portfolio · 2022 → 2026</p>
   <h1>Iker <span class="mk">García</span></h1>
   <p class="lead">Emprendo desde 2022. He vendido ropa online a Estados Unidos, he llevado un bar en un pueblo de Soria, he montado stands de chuches en el BEC y hoy dirijo una consultora de IA para pymes.</p>
+  <div class="ixstart"><button type="button" class="startbtn" data-tour-start><b>Empezar el recorrido</b><span aria-hidden="true">→</span></button></div>
   <div id="indexGrid"></div>
 </section>
 
@@ -396,7 +602,7 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
     <div>
       <p class="mono soft">Sobre mí</p>
       <h3>Iker García</h3>
-      <div class="meta"><span>Burceña, 2002</span><span>LEINN · Mondragon Unibertsitatea</span><span>Cofundador y CEO de IApyme</span><span>Inglés C1 · Euskera B1/C1</span></div>
+      <div class="meta"><span>Burceña, 2002</span><span>LEINN · Mondragon Unibertsitatea</span><span>Cofundador y CEO de IApyme</span><span>Inglés C1 · Euskera B1/C1</span><span>+2,5 años cotizados</span></div>
     </div>
     <img src="img/retrato.jpg" alt="Iker García en el foro ASETT" width="820" height="1200">
   </div>
@@ -406,13 +612,27 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
   <p class="mono soft">El camino</p>
   <ol class="path">
     <li><span>2002</span>Nazco en Burceña, Barakaldo.</li>
-    <li><span>2022</span>Dejo ADE y monto Dripzone Shop.</li>
-    <li><span>2023</span>Entro en LEINN y en el equipo RIVIA. Primer viaje de equipo, a Berlín.</li>
-    <li><span>2024</span>Bar de las piscinas de Berlanga de Duero y Frezzyks en el PIN.</li>
-    <li><span>2025</span>Nueva York, Foro ASETT, nace IApyme e Impulso Digital con once empresas de Amurrio.</li>
+    <li><span>2022</span>Dejo ADE, monto Dripzone Shop y entro en LEINN. Empiezo en Foot Locker.</li>
+    <li><span>2023</span>Fundamos RIVIA, la junior empresa del equipo. Primer viaje de equipo, a Berlín.</li>
+    <li><span>2024</span>Nace IApyme con Oier. Verano en Meliá y en el bar de Berlanga, y Frezzyks en el PIN.</li>
+    <li><span>2025</span>Nueva York y el foro de ASETT, Impulso Digital con once empresas de Amurrio y un verano al frente del bar de Berlanga.</li>
     <li><span>2026</span>India y Corea, las herramientas de Licores Barañano, SCARPA, Gorobel y Alambique, nuestro primer producto propio. Todo dentro de IApyme.</li>
   </ol>
-  <div class="xlinks"><button type="button" class="btn" data-open="internacional">Internacional →</button><button type="button" class="btn" data-open="herramientas">Herramientas →</button></div>
+  <div class="xlinks"><button type="button" class="btn" data-tour="@exp">Experiencia →</button><button type="button" class="btn" data-open="internacional">Internacional →</button><button type="button" class="btn" data-open="herramientas">Herramientas →</button></div>
+</template>
+
+<template id="tpl-exp">
+  <p class="mono soft">Experiencia</p>
+  <h3>Fuera de mis proyectos</h3>
+  <div class="meta"><span>2022 → hoy</span><span>Por cuenta ajena</span><span>Entre estudios y proyectos</span></div>
+  <p>Mientras estudiaba y montaba proyectos he trabajado por cuenta ajena. En tienda, en hotel, en sala y en eventos: es donde más he aprendido a tratar con el cliente cara a cara.</p>
+  <div class="kpi"><div><strong>+2,5 años</strong><span>cotizados</span></div><div><strong>+200</strong><span>servicios de hostelería y eventos en cuatro años</span></div><div><strong>4</strong><span>sectores: retail, hoteles, hostelería y eventos</span></div></div>
+  <ul class="xp">
+    <li><span class="lg"><img src="img/exp/footlocker.png" alt="Foot Locker" width="96" height="96"></span><div><b>Foot Locker</b><span class="role">Jefe de logística de almacén · media jornada</span><p>Encargado y runner en la tienda de Gran Vía, en Bilbao: almacén, reposición y salida a tienda cuando hacía falta.</p></div><span class="when">Dic 2022 → nov 2023</span></li>
+    <li><span class="lg"><img src="img/exp/melia_m.png" alt="Meliá Hotels International" width="99" height="30"></span><div><b>Meliá Hotels International</b><span class="role">Guest service associate · jornada completa</span><p>Atención a huéspedes en Bilbao. Ese verano llevaba además la administración del bar de Berlanga a distancia, con el día a día delegado en el equipo.</p></div><span class="when">May → ago 2024</span></li>
+    <li><span class="lg t">Asadores<br>y eventos</span><div><b>Hostelería y eventos</b><span class="role">Camarero y azafato de eventos</span><p>Más de 200 servicios en los últimos cuatro años, en asadores de renombre como Arraiz y en todo tipo de eventos.</p></div><span class="when">2022 → hoy</span></li>
+    <li><span class="lg"><img src="img/exp/theartist.svg" alt="The Artist Grand Hotel of Art" width="288" height="182"></span><div><b>The Artist Grand Hotel of Art</b><span class="role">Aparcacoches · un mes</span><p>Hotel de cinco estrellas frente al Guggenheim, al lado del Puppy. Un mes en la puerta, que es el primer contacto del cliente con el hotel.</p></div><span class="when">Ago 2026</span></li>
+  </ul>
 </template>
 
 <template id="tpl-contact">
@@ -450,58 +670,108 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 <template id="case-leinn">
       <p class="mono soft">02 / Vuelvo a estudiar</p>
       <h3>LEINN · RIVIA</h3>
-      <div class="meta"><span>2023 → hoy</span><span>Mondragon Unibertsitatea</span><span>Junior empresa</span><span>14 personas</span></div>
-      <p>Grado en Liderazgo Emprendedor e Innovación. No hay clases magistrales: se aprende montando proyectos que facturan. Desde el primer curso formo parte de RIVIA, la asociación estudiantil junior empresa de nuestro equipo. Cada proyecto lleva sus cuentas y rinde cuentas al resto.</p>
-      <p>Con RIVIA hemos llevado un bar en Soria, montado stands en ferias, trabajado para festivales de música, hecho transcripciones para la universidad, viajado a Berlín, Nueva York, India y Corea, y de aquí salió IApyme.</p>
-      <p class="mono soft">RIVIA en cifras</p>
-      <div class="kpi"><div><strong>+160.000 €</strong><span>facturados entre 2023 y 2026</span></div><div><strong>+45</strong><span>clientes con factura</span></div><div><strong>10</strong><span>sectores</span></div><div><strong>39</strong><span>proyectos con facturación</span></div></div>
-      <p class="mono soft">Sectores y algunos clientes</p>
-      <ul class="sectors"><li><b>Hostelería</b><span>Bar de las piscinas de Berlanga de Duero, Manducateca, Alondegui</span></li><li><b>Música y festivales</b><span>Entzun Producciones, Promociones Musicales Iregua, Fundación Intras</span></li><li><b>Educación</b><span>UPV/EHU, Mondragon Unibertsitatea, Lea Artibai, Colegio Trueba</span></li><li><b>Administración pública</b><span>Ayuntamientos de Barakaldo, Etxebarri y Berlanga de Duero</span></li><li><b>Comercio local</b><span>Asociación de Comerciantes de Sopela, centro comercial Zubiarte</span></li><li><b>Marketing y comunicación</b><span>No Te Pierdas En Las Redes, Masala Creativa</span></li><li><b>Tecnología</b><span>Glovo, Onistek</span></li><li><b>Deporte y ocio</b><span>Q-Fitness, Gorobel Kirol Gunea</span></li><li><b>Alimentación y bebidas</b><span>Licores Barañano</span></li><li><b>Movilidad y alquiler</b><span>Autocaravanas Getxo, AC Bilbao Rent</span></li></ul>
-      <p class="mono soft">Trabajar en equipo</p>
-      <ol class="path">
-        <li><span>Berlanga</span>Tres meses al frente del bar de las piscinas, con 18 compañeros de LEINN por turnos: proveedores, turnos, caja y pagos.</li>
-        <li><span>IApyme</span>Cofundador con Oier Pérez. Los dos vendemos y los dos construimos.</li>
-        <li><span>Impulso Digital</span>Programa para 11 empresas de Amurrio, hecho junto a No Te Pierdas En Las Redes.</li>
-        <li><span>Seúl</span>Programa para founders diseñado con Make Your Way.</li>
-      </ol>
-      <div class="src"><button type="button" class="btn" data-open="berlanga">Bar de Berlanga →</button><button type="button" class="btn" data-open="iapyme">IApyme →</button><button type="button" class="btn" data-open="internacional">Internacional →</button></div>
+      <div class="meta"><span>LEINN 2022 → hoy</span><span>Mondragon Unibertsitatea</span><span>Socio fundador de RIVIA</span><span>14 personas</span></div>
+      <p>Grado en Liderazgo Emprendedor e Innovación. Aquí no hay clases magistrales: se aprende montando proyectos que facturan, con clientes de verdad, y cada uno rinde cuentas al resto del equipo.</p>
+      <p>En 2023 fundamos RIVIA, la junior empresa de nuestro equipo. Somos catorce y cada uno tira de lo suyo, así que de la misma asociación han salido cosas muy distintas. Nos ha tocado vender, atender barras, dar clases, diseñar producto y coger un avión. Y de aquí salió IApyme.</p>
+      <p class="mono soft">Lo que ha salido de RIVIA</p>
+      <ul class="doing">
+        <li><b>Hostelería</b><span>El bar de las piscinas de Berlanga de Duero y una hamburguesería.</span></li>
+        <li><b>Eventos y ferias</b><span>Stands en ferias, el PIN de Navidad del BEC y trabajos para festivales de música.</span></li>
+        <li><b>Formación y servicios</b><span>Formaciones y servicios para empresas, y transcripciones para la universidad.</span></li>
+        <li><b>Producto propio</b><span>Productos desarrollados por el equipo, como unas botas modulares.</span></li>
+        <li><b>Viajes de aprendizaje</b><span>Berlín, Nueva York, India y Corea.</span></li>
+        <li><b>Empresas</b><span>IApyme, que empezó como un proyecto más dentro de RIVIA.</span></li>
+      </ul>
+      <p class="mono soft lmore">Y mucho más: cada curso salen proyectos nuevos.</p>
+
+      <div class="game" data-r="">
+        <p class="mono">Minijuego</p>
+        <p class="gq">¿Cuánto crees que hemos facturado entre todos, como asociación, en estos cuatro años?</p>
+        <div class="grow"><input type="range" min="0" max="400000" step="5000" value="50000" aria-label="Tu apuesta en euros"><output>50.000 €</output></div>
+        <div class="gfoot"><button type="button" class="btn">Comprobar</button><p class="gres" aria-live="polite"></p></div>
+      </div>
+
+      <p class="mono soft">Lo que trabajas en un equipo así</p>
+      <ul class="comp">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><b>Liderazgo rotativo</b><span>Cada proyecto lo lidera alguien distinto.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg><b>Comunicación y feedback</b><span>Dar y recibir críticas cada semana.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12l4-4 5 3 5-3 4 4-4 5-5-3-5 3z"/></svg><b>Negociación y venta</b><span>Con clientes, proveedores y ayuntamientos.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM9 4v16M14 4v16"/><path d="M5.5 8h2M10.5 8h2M10.5 12h2M15.5 8h2"/></svg><b>Gestión de proyectos</b><span>Plazos, turnos y entregables.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Finanzas y presupuestos</b><span>Cada proyecto lleva sus cuentas.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5M12 20c0-3 3-5 6-5"/></svg><b>Decisiones en asamblea</b><span>Presupuestos y reglas, votados entre todos.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><b>Resolución de conflictos</b><span>Catorce personas, catorce formas de hacer.</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13"/><path d="M8 7V4h8v3M3 12h18"/></svg><b>Clientes reales</b><span>Desde el primer curso, con factura.</span></li>
+      </ul>
+      <div class="xlinks"><button type="button" class="btn" data-open="berlanga">Bar de Berlanga →</button><button type="button" class="btn" data-open="iapyme">IApyme →</button><button type="button" class="btn" data-open="internacional">Internacional →</button></div>
 </template>
 <template id="case-berlanga">
       <p class="mono soft">03 / Hostelería en la España rural</p>
       <h3>Bar de Berlanga de Duero</h3>
-      <div class="meta"><span>15 jun → 15 sep</span><span>Gestión del bar</span><span>Licitación pública</span><span>Soria</span></div>
-      <p>RIVIA ganó la licitación del Ayuntamiento de Berlanga de Duero para explotar el bar de las piscinas municipales: 6.000 € por dos temporadas. Lo gestionamos estudiantes de LEINN por turnos, de mediados de junio a mediados de septiembre, abriendo de 11:00 a 2:00.</p>
-      <p>Lo llevé durante tres meses. Proveedores, turnos, caja, cocina sencilla, contratos y pagos a la Seguridad Social, en un pueblo de Soria que en agosto se llena con los veraneantes y las fiestas.</p>
-      <div class="kpi"><div><strong>42.396 €</strong><span>vendidos en 2024</span></div><div><strong>48.652 €</strong><span>vendidos en 2025</span></div><div><strong>6.000 €</strong><span>canon por dos temporadas</span></div><div><strong>18</strong><span>estudiantes por turnos</span></div></div>
+      <div class="meta"><span>Veranos de 2024 y 2025</span><span>Licitación pública</span><span>Gestión del bar</span><span>Soria</span></div>
+      <figure class="photo"><img src="img/b_piscina.jpg" alt="Las piscinas municipales de Berlanga de Duero en agosto, con el bar y el castillo al fondo" width="638" height="480" loading="lazy"><figcaption class="mono soft">Las piscinas de Berlanga en agosto, con el castillo al fondo. La gente va difuminada.</figcaption></figure>
+      <p>Desde RIVIA preparamos y ganamos la licitación del Ayuntamiento de Berlanga de Duero para llevar el bar de las piscinas municipales. Lo gestionamos estudiantes de LEINN por turnos, de mediados de junio a mediados de septiembre, abriendo de 11:00 a 2:00, en un pueblo de Soria que en agosto se llena con los veraneantes y las fiestas.</p>
+      <p>En 2024 lo llevé desde la administración: ese verano trabajaba en Meliá, así que delegué el día a día en el equipo que estaba en el pueblo. En 2025 estuve al frente allí, detrás de la barra.</p>
+      <p class="mono soft">Lo que supone llevar un bar así</p>
+      <ul class="doing">
+        <li><b>La licitación</b><span>Preparar la oferta, cumplir los pliegos y tratar con el Ayuntamiento.</span></li>
+        <li><b>Proveedores</b><span>Pedidos, precios y entregas en un pueblo pequeño.</span></li>
+        <li><b>Equipo por turnos</b><span>Dieciocho compañeros que van rotando cada pocas semanas.</span></li>
+        <li><b>Atención al cliente</b><span>Familias, veraneantes y gente del pueblo, de la mañana a la madrugada.</span></li>
+        <li><b>Caja y papeles</b><span>Caja diaria, contratos y pagos a la Seguridad Social.</span></li>
+      </ul>
+      <div class="kpi"><div><strong>42.396 €</strong><span>vendidos en 2024</span></div><div><strong>48.652 €</strong><span>vendidos en 2025</span></div><div><strong>18</strong><span>estudiantes por turnos</span></div><div><strong>15 h</strong><span>abiertos cada día</span></div></div>
       <div class="src">
         <span class="mono soft">Prensa</span>
+        <a href="https://www.antena3.com/noticias/economia/jovenes-universitarios-salvan-bar-piscina-berlanga-duero_202406306681c1ea855de9000165f857.html" target="_blank" rel="noopener">Antena 3 · Jóvenes universitarios salvan el bar de la piscina de Berlanga de Duero</a>
         <a href="https://www.desdesoria.es/articulo/noticias/proyecto-universitario-lleva-18-jovenes-gestionar-bar-piscinas-berlanga-duero/20240712163458809227.html" target="_blank" rel="noopener">desdeSoria · Un proyecto universitario lleva a 18 jóvenes a gestionar el bar de las piscinas</a>
         <a href="https://sorianoticias.com/noticia/2024-08-25-de-la-universidad-de-mondragon-a-berlanga-de-duero-para-aprender-de-la-practica-113001" target="_blank" rel="noopener">SoriaNoticias · De la Universidad de Mondragón a Berlanga de Duero para aprender de la práctica</a>
-        <a href="https://www.antena3.com/noticias/economia/jovenes-universitarios-salvan-bar-piscina-berlanga-duero_202406306681c1ea855de9000165f857.html" target="_blank" rel="noopener">Antena 3 · Jóvenes universitarios salvan el bar de la piscina de Berlanga de Duero</a>
-        <a href="https://www.berlangadeduero.es/bar-piscinas-berlanga" target="_blank" rel="noopener">Ayuntamiento de Berlanga de Duero · Bar Piscinas</a>
       </div>
-    </template>
+</template>
 <template id="case-frezzyks">
       <p class="mono soft">04 / Venta cara a cara</p>
       <h3>Frezzyks</h3>
-      <div class="meta"><span>Dic 2024 → 2025</span><span>PIN de Navidad · BEC</span><span>Zubiarte</span></div>
-      <p>Gominolas liofilizadas vendidas al público. Primero en un stand en el PIN de Navidad del BEC: producto a la vista en baldas de madera y un vídeo en bucle enseñando cómo cruje. Después conseguimos un puesto propio en el centro comercial Zubiarte, en el centro de Bilbao.</p>
+      <div class="meta"><span>Dic 2024 → 2025</span><span>Revendedores oficiales</span><span>PIN de Navidad · BEC</span><span>Zubiarte</span></div>
+      <p>Frezzyks es una marca de chuches liofilizadas que los chavales conocen por TikTok. Nosotros vendíamos su producto oficial como revendedores. La idea no era el producto, era dónde y cómo venderlo.</p>
+      <p class="mono soft">La idea en tres pasos</p>
+      <ol class="mkt">
+        <li><span class="mn">1</span><b>Una marca que ya conocen</b><span>Los niños la tienen en la cabeza por los vídeos, pero casi ninguno la había probado. No hay que explicarla: solo ponerla delante.</span></li>
+        <li><span class="mn">2</span><b>Ir a donde están ellos</b><span>Venta de guerrilla en sitios llenos de familias: el PIN de Navidad del BEC y después un puesto en Zubiarte, en el centro de Bilbao.</span></li>
+        <li><span class="mn">3</span><b>El efecto wow vale dinero</b><span>Producto a la vista y un vídeo en bucle enseñando cómo cruje. Era algo que llevaban tiempo queriendo probar, y por eso se podía cobrar bien.</span></li>
+      </ol>
+      <figure class="photo w"><img src="img/fz_tiktok.jpg" alt="Perfil de Frezzyks en TikTok con 657.800 seguidores y 15,7 millones de me gusta" width="1200" height="783" loading="lazy"><figcaption class="mono soft">La marca en TikTok: 657.800 seguidores y 15,7 millones de "me gusta" · captura del 16/11/2026</figcaption></figure>
       <div class="kpi"><div><strong>777</strong><span>bolsas en 9 días de PIN</span></div><div><strong>3.615 €</strong><span>vendidos en el PIN, sin IVA</span></div><div><strong>2.041 €</strong><span>facturados en Zubiarte</span></div></div>
       <div class="gal">
-        <figure><img src="img/frezzyks_stand.jpg" alt="Stand de Frezzyks con bolsas de gominolas liofilizadas" width="1000" height="1335"></figure>
-        <figure><img src="img/frezzyks_iker.jpg" alt="Iker atendiendo el stand de Frezzyks" width="1000" height="1335"></figure>
+        <figure><img src="img/frezzyks_stand.jpg" alt="Stand de Frezzyks con bolsas de gominolas liofilizadas" width="1000" height="1335" loading="lazy"></figure>
+        <figure><img src="img/frezzyks_iker.jpg" alt="Iker atendiendo el stand de Frezzyks" width="1000" height="1335" loading="lazy"></figure>
       </div>
-    </template>
+</template>
 <template id="case-nueva-york">
       <p class="mono soft">05 / Primera vez trabajando fuera</p>
       <h3>Nueva York y ASETT</h3>
       <div class="meta"><span>Ene → may 2025</span><span>Nueva York · Donostia</span><span>Economía social</span><span>En inglés</span></div>
       <p>Trabajé en Nueva York dentro de una coalición que impulsa la vivienda cooperativa como alternativa entre la vivienda pública y el precio de mercado. En inglés, en otra cultura de trabajo y en un tema que no tenía nada que ver con vender producto.</p>
+      <p class="mono soft">Trabajamos con Michael Peck</p>
+      <p>Michael Peck lleva desde el año 2000 tendiendo puentes entre Mondragon y Estados Unidos. Cofundó 1worker1vote, que impulsa allí las cooperativas con sindicato: empresas de los propios trabajadores, con los principios de Mondragon y con convenio colectivo, sobre el modelo que firmaron United Steelworkers y Mondragon en 2012. Además es escritor y activista político.</p>
+      <div class="box peck">
+        <p class="mono">Su perfil</p>
+        <b>Michael Peck</b>
+        <dl class="spec">
+          <div><dt>Hoy</dt><dd>Cofundador y director ejecutivo de 1worker1vote</dd></div>
+          <div><dt>Mondragon</dt><dd>Delegado de Estados Unidos en el Congreso Cooperativo de MONDRAGON desde 2000, el primero y el único</dd></div>
+          <div><dt>Consejos</dt><dd>Junta del American Sustainable Business Council y consejo asesor de empresas de la BlueGreen Alliance</dd></div>
+          <div><dt>Empresa</dt><dd>Fundador de MAPA Group, una consultora de desarrollo de negocio</dd></div>
+          <div><dt>Estudios</dt><dd>Rice University y la Escuela de Estudios Internacionales Avanzados (SAIS) de Johns Hopkins</dd></div>
+        </dl>
+      </div>
+      <p>Junto a mis compañeros Alejandro y Gimeno le vendimos, a título personal, un estudio de mercado sobre la vivienda cooperativa y en cesión de uso en España. Yo lideré la investigación y el proyecto.</p>
+      <p class="mono soft">La ponencia en ASETT</p>
       <p>De ese trabajo salió mi participación en ASETT, el Arizmendiarrieta Social Economy Think Tank que impulsa MONDRAGON. En su primer foro internacional, con expertos de cuatro continentes, presenté el panorama de la vivienda asequible en Europa y el hueco que cubre la vivienda cooperativa para las rentas medias.</p>
-      <div class="kpi"><div><strong>3 meses</strong><span>en Nueva York</span></div><div><strong>4</strong><span>continentes en el foro de ASETT</span></div></div>
-      <div class="gal"><figure class="w"><img src="img/asett.jpg" alt="Iker presentando sobre vivienda asequible en la Unión Europea" width="1000" height="1776" style="aspect-ratio:4/3;object-position:50% 35%"><figcaption class="mono soft">Ponencia en el foro de ASETT · Donostia, mayo de 2025</figcaption></figure></div>
+      <div class="kpi"><div><strong>3 meses</strong><span>en Nueva York</span></div><div><strong>1</strong><span>estudio de mercado vendido</span></div><div><strong>4</strong><span>continentes en el foro de ASETT</span></div></div>
+      <div class="gal"><figure class="w"><img src="img/asett.jpg" alt="Iker presentando sobre vivienda asequible en la Unión Europea" width="1000" height="1776" style="aspect-ratio:4/3;object-position:50% 35%" loading="lazy"><figcaption class="mono soft">Ponencia en el foro de ASETT · Donostia, mayo de 2025</figcaption></figure></div>
       <div class="src">
-        <span class="mono soft">Sobre el foro</span>
+        <span class="mono soft">Enlaces</span>
+        <a href="https://platform.coop/people/michael-peck/" target="_blank" rel="noopener">Platform Cooperativism Consortium · perfil de Michael Peck</a>
+        <a href="https://greattransition.org/contributor/michael-peck/" target="_blank" rel="noopener">Great Transition Initiative · perfil de Michael Peck</a>
         <a href="https://www.tulankide.com/en/all-set-for-the-first-asett-forum" target="_blank" rel="noopener">Tulankide · All set for the first ASETT forum</a>
         <a href="https://www.lamoncloa.gob.es/lang/en/gobierno/news/paginas/2025/20250530-hub-asett.aspx" target="_blank" rel="noopener">La Moncloa · Social Economy is the vaccine against inequality</a>
         <button type="button" class="btn" data-open="internacional" style="margin-top:8px;align-self:flex-start">Ver todo lo internacional →</button>
@@ -510,8 +780,10 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
 <template id="case-iapyme">
       <p class="mono soft">06 / El proyecto principal</p>
       <h3>IApyme Consultores</h3>
-      <div class="meta"><span>Abr 2025 → hoy</span><span>Cofundador y CEO</span><span>Con Oier Pérez</span><span>Bilbao</span></div>
-      <p>Consultora de inteligencia artificial para pymes con poca digitalización. Entre los dos cubrimos todo el ciclo: vendemos, diseñamos y construimos. Empezamos como consultores que analizan y se van, y cambiamos el enfoque: ahora funcionamos como el departamento de IA de la empresa y nos quedamos hasta que el equipo usa las herramientas en su día a día.</p>
+      <div class="meta"><span>Sep 2024 → hoy</span><span>Cofundador y CEO</span><span>Con Oier Pérez</span><span>Bilbao</span></div>
+      <p>IApyme es la consultora de inteligencia artificial que fundé con Oier Pérez, para pymes con poca digitalización. Entre los dos cubrimos todo el ciclo: vendemos, diseñamos y construimos.</p>
+      <p>Vimos el hueco a través de lo que nos gustaba. Nosotros usábamos la IA para todo y las pymes de nuestro alrededor no sabían ni por dónde empezar. Arrancamos con formaciones básicas y, encargo a encargo, acabamos haciendo modelos de uso, herramientas integrales, desarrollo de software, modelos de medición, innovación estratégica, webs, chatbots y todo lo que una pyme pueda necesitar.</p>
+      <p>Lo que no ha cambiado es la base: entramos como el departamento de IA de la empresa y nos quedamos hasta que el equipo usa las herramientas en su día a día.</p>
       <div class="kpi"><div><strong>+50</strong><span>empresas atendidas</span></div><div><strong>+150</strong><span>personas formadas</span></div><div><strong>4</strong><span>países: España, México, India y Corea</span></div></div>
       <p class="mono soft">Del taller al producto propio</p>
       <div class="stairs"><div class="st" style="--h:1"><span class="sn">1</span><b>Taller</b><span class="sd">Webinars y sesiones sueltas</span><span class="se">Gaztenpresa</span></div><button type="button" class="st" style="--h:2" data-open="impulso"><span class="sn">2</span><b>Formación</b><span class="sd">Cursos para equipos enteros</span><span class="se">Impulso Digital →</span></button><button type="button" class="st" style="--h:3" data-open="gorobel"><span class="sn">3</span><b>Automatización</b><span class="sd">Procesos resueltos con lo que ya tiene el cliente</span><span class="se">Gorobel →</span></button><button type="button" class="st" style="--h:4" data-open="baranano"><span class="sn">4</span><b>Software a medida</b><span class="sd">Herramientas con base de datos</span><span class="se">Licores Barañano →</span></button><button type="button" class="st" style="--h:5" data-open="alambique"><span class="sn">5</span><b>Producto propio</b><span class="sd">Un SaaS para todo un sector</span><span class="se">Alambique →</span></button></div>
@@ -532,29 +804,57 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
           <li><button type="button" data-open="india-corea">India y Corea</button><small>IApyme fuera de casa</small></li>
         </ul>
       </div>
-      <p class="mono soft">Empresas con las que hemos trabajado</p><ul class="logos"><li><img src="img/cl_mondragon-unibertsitatea.jpg" alt="Mondragon Unibertsitatea" loading="lazy"></li><li><img src="img/cl_licores-baranano.svg" alt="Licores Barañano" loading="lazy"></li><li><img src="img/cl_gorobel-kirol-gunea.jpg" alt="Gorobel Kirol Gunea" loading="lazy"></li><li><img src="img/cl_cuadra-bus.png" alt="Cuadra Bus" loading="lazy"></li><li><img src="img/cl_graficas-amurrio.png" alt="Gráficas Amurrio" loading="lazy"></li><li><img src="img/cl_talleres-f-larrinaga.png" alt="Talleres F. Larrinaga" loading="lazy"></li><li><img src="img/cl_etxeguren.png" alt="Etxeguren" loading="lazy"></li><li><img src="img/cl_ekin.png" alt="Ekin" loading="lazy"></li><li><img src="img/cl_necomplus.jpg" alt="Necomplus" loading="lazy"></li></ul><p class="mono soft lmore">Y también: Gaztenpresa, Amurrioko Enpresak, MMC Pulidos, SCARPA y Casa Garrido.</p>
+      <p class="mono soft">Empresas con las que hemos trabajado</p><ul class="logos"><li><img src="img/cl_mondragon-unibertsitatea.jpg" alt="Mondragon Unibertsitatea" loading="lazy"></li><li><img src="img/cl_licores-baranano.svg" alt="Licores Barañano" loading="lazy"></li><li><img src="img/cl_gorobel-kirol-gunea.jpg" alt="Gorobel Kirol Gunea" loading="lazy"></li><li><img src="img/cl_cuadra-bus.png" alt="Cuadra Bus" loading="lazy"></li><li><img src="img/cl_graficas-amurrio.png" alt="Gráficas Amurrio" loading="lazy"></li><li><img src="img/cl_talleres-f-larrinaga.png" alt="Talleres F. Larrinaga" loading="lazy"></li><li><img src="img/cl_etxeguren.png" alt="Etxeguren" loading="lazy"></li><li><img src="img/cl_ekin.png" alt="Ekin" loading="lazy"></li><li><img src="img/cl_necomplus.jpg" alt="Necomplus" loading="lazy"></li></ul><p class="mono soft lmore">Y también: Gaztenpresa, Amurrioko Enpresak, MMC Pulidos, SCARPA, Casa Garrido y muchas más.</p>
       <p class="mono soft">Lo que dicen los clientes</p><blockquote class="tq"><p>De todos los que me prometían cambiarme el negocio, vosotros habéis hecho entender lo necesario para poder hacerlo yo mismo, y eso no tiene precio.</p><cite class="mono">Gorobel Kirol Gunea</cite></blockquote><blockquote class="tq"><p>Vais al grano, y sois efectivos.</p><cite class="mono">Gaizka Barañano · Licores Barañano</cite></blockquote>
       <p class="mono soft">Qué vendemos</p>
-      <ol class="path">
+      <ol class="path svc">
         <li><span>Formación</span>Cursos de IA presenciales y en línea, y onboarding aplicado: el primer contacto de la empresa con la IA, diseñado para su caso.</li>
+        <li><span>Frameworks de cursos</span>Diseñamos el curso para que otro lo imparta y lo venda, como el que hicimos para una agencia de marketing digital.</li>
         <li><span>Automatización</span>Procesos repetitivos resueltos con las herramientas que el cliente ya tiene, sin plataformas complejas que luego nadie mantiene.</li>
+        <li><span>Chatbots</span>Asistentes que atienden a los clientes de la empresa en su web, como el de Alquiler Autocaravanas Bilbao.</li>
         <li><span>Software a medida</span>Herramientas con base de datos para un cliente concreto, como la de Gorobel o la de Licores Barañano, y productos propios como Alambique.</li>
         <li><span>Tiendas y webs</span>Tiendas Shopify y webs con diseño propio, como SCARPA en Erandio o Casa Garrido en México.</li>
+        <li><span>Estrategia</span>Modelos de uso de la IA, modelos de medición e innovación estratégica para el equipo directivo.</li>
         <li><span>Programas</span>Acompañamiento a grupos de empresas para entidades públicas y asociaciones, como Impulso Digital.</li>
       </ol>
-      <p>Clientes y colaboradores: Mondragon Unibertsitatea, Gaztenpresa, Amurrioko Enpresak, Autobuses Cuadra, Gorobel Kirol Gunea, MMC Pulidos, Licores Barañano, SCARPA y Casa Garrido. En mayo de 2026 defendimos el proyecto en el TMT de LEINN ante profesores y evaluadores externos.</p>
-      <p class="mono soft">La web nueva</p>
-      <p>Estamos rehaciendo la web para contar lo que hacemos hoy. Trabajamos dos direcciones: "Línea IA", donde cada servicio es un destino en un panel de salidas, y "Cuaderno", que explica la IA como una libreta de clase.</p>
-      <div class="gal">
-        <figure class="w"><img src="img/w_lineaia.jpg" alt="Propuesta de web de IApyme con un panel de salidas" width="1200" height="750"><figcaption class="mono soft">Línea IA · "IA a medida, al ritmo de tu empresa"</figcaption></figure>
-        <figure><img src="img/w_cuaderno.jpg" alt="Propuesta de web de IApyme con estética de cuaderno" width="1200" height="750"><figcaption class="mono soft">Cuaderno · portada</figcaption></figure>
-        <figure><img src="img/w_cuaderno2.jpg" alt="Servicios de IApyme en la propuesta Cuaderno" width="1200" height="750"><figcaption class="mono soft">Cuaderno · servicios</figcaption></figure>
-        <figure><img src="img/w_adn.jpg" alt="Cuestionario ADN de tu marca" width="1200" height="750"><figcaption class="mono soft">ADN de tu marca · cuestionario para clientes</figcaption></figure>
-        <figure><img src="img/w_croquis.jpg" alt="Plano del servicio para Gorobel" width="1200" height="750"><figcaption class="mono soft">Plano de servicio · Gorobel</figcaption></figure>
+      <p>En mayo de 2026 defendimos el proyecto en el TMT de LEINN ante profesores y evaluadores externos.</p>
+
+      <p class="mono soft">Dos encargos que no salen en otras fichas</p>
+      <div class="duo">
+        <div class="box">
+          <p class="mono">Chatbot · Tidio</p>
+          <b>Alquiler Autocaravanas Bilbao</b>
+          <p>Un asistente en su web que atiende a quien entra a cualquier hora: resuelve dudas, gestiona reservas y recoge los datos de contacto para que el equipo los llame.</p>
+          <a class="btn" href="https://alquilerautocaravanasbilbao.com" target="_blank" rel="noopener">Ver su web ↗</a>
+        </div>
+        <div class="box">
+          <p class="mono">Framework de curso</p>
+          <b>Para una agencia de marketing digital</b>
+          <p>No les dimos un curso: les diseñamos el framework para que ellos se formen con él, lo impartan y lo vendan como propio. Tres días con trabajo previo, sesión y tareas, y un informe de resultados al mes.</p>
+          <a class="fthumb" href="img/ia_framework.jpg" target="_blank" rel="noopener" data-zoom="El framework del curso: trabajo previo, sesión y tareas de cada día"><img src="img/ia_framework.jpg" alt="Esquema del framework de tres días: trabajo previo, sesión y tareas de cada día, y hoja de ruta final" width="1194" height="1418" loading="lazy"><span class="mono">Ver el framework entero</span></a>
+        </div>
+      </div>
+
+      <p class="mono soft">Recursos y propuestas</p>
+      <p>Así enseñamos lo que hacemos. Para cada cliente o programa construimos la propuesta como una web: interactiva, con su identidad y lista para enseñar en la reunión. Estas son algunas, y casi todas se pueden abrir.</p>
+      <div class="lcards">
+        <a class="lcard" href="https://iapymeconsultores.github.io/GSCproposal/" target="_blank" rel="noopener"><img src="img/r_gsc.jpg" alt="Propuesta AI Skills for Founders para Global Startup Center" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Propuesta · Seúl</span><b>AI Skills for Founders, para Global Startup Center</b><span class="go">Abrir ↗</span></span></a>
+        <a class="lcard" href="https://iapymeconsultores.github.io/interactiveprogramm/" target="_blank" rel="noopener"><img src="img/r_myw2.jpg" alt="Configurador de programa paso a paso" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Embudo interactivo · Seúl</span><b>El hub se monta su propio programa en 8 pasos</b><span class="go">Abrir ↗</span></span></a>
+        <a class="lcard" href="https://iapymeconsultores.github.io/cuestionarioPOS/" target="_blank" rel="noopener"><img src="img/r_adn.jpg" alt="Cuestionario ADN de tu marca con vista previa de la tienda" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Cuestionario · Tienda online</span><b>ADN de tu marca: la tienda se dibuja mientras respondes</b><span class="go">Abrir ↗</span></span></a>
+        <a class="lcard" href="https://iapymeconsultores.github.io/gorobel-propuesta/" target="_blank" rel="noopener"><img src="img/r_gor1.jpg" alt="Propuesta de delegación de tareas para Gorobel" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Propuesta · Gorobel</span><b>Delegación de tareas, con el diagrama animado</b><span class="go">Abrir ↗</span></span></a>
+        <a class="lcard" href="https://iapymeconsultores.github.io/casoEXITOimpulsodigital/" target="_blank" rel="noopener"><img src="img/r_caso.jpg" alt="Caso de éxito de Impulso Digital" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Caso de éxito · Amurrio</span><b>Impulso Digital, empresa por empresa</b><span class="go">Abrir ↗</span></span></a>
+        <a class="lcard" href="https://iapymeconsultores.github.io/hackatonv1.1/" target="_blank" rel="noopener"><img src="img/r_hack.jpg" alt="Web de un hackathon en Cheongdo, en coreano" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Evento · Corea</span><b>Web de un hackathon en Cheongdo, en coreano e inglés</b><span class="go">Abrir ↗</span></span></a>
+      </div>
+      <p class="mono soft">Prototipos y propuestas sin enlace público</p>
+      <div class="lcards three">
+        <div class="lcard big"><img src="img/r_web.jpg" alt="Prototipo de la nueva web de IApyme con un robot hecho de caracteres" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Prototipo · nueva web de IApyme</span><b>La próxima web de IApyme: un robot que se monta al hacer scroll</b><span class="ls">Todavía no está publicada. La construye y la revisa un equipo de tres agentes de Claude Code: uno anima el robot, otro revisa la calidad y otro cuida el SEO.</span></span></div>
+        <div class="lcard"><img src="img/r_mx.jpg" alt="Propuesta de webs para pymes de México" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Propuesta · México</span><b>Webs para pymes, con maqueta de móvil y calculadora de retorno</b></span></div>
+        <div class="lcard"><img src="img/w_lineaia.jpg" alt="Dirección de diseño Línea IA con un panel de salidas" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Puesta en escena</span><b>"Línea IA": cada servicio es un destino en un panel de salidas</b></span></div>
+        <div class="lcard"><img src="img/w_cuaderno2.jpg" alt="Dirección de diseño Cuaderno" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Puesta en escena</span><b>"Cuaderno": la IA explicada como una libreta de clase</b></span></div>
       </div>
       <div class="src">
         <span class="mono soft">Enlaces</span>
-        <a href="https://iapymeconsultores.com" target="_blank" rel="noopener">iapymeconsultores.com</a>
+        <a href="https://iapymeconsultores.com" target="_blank" rel="noopener">iapymeconsultores.com · la web publicada hoy</a>
         <a href="https://iapymeconsultores.github.io/casoEXITOimpulsodigital/" target="_blank" rel="noopener">Caso de éxito · Impulso Digital</a>
         <a href="https://iapymeconsultores.github.io/proposal/" target="_blank" rel="noopener">Propuesta para hubs de Seúl · IApyme × Make Your Way</a>
       </div>
@@ -565,6 +865,7 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
       <div class="meta"><span>May 2025 → ene 2026</span><span>Amurrio</span><span>Para Amurrioko Enpresak</span><span>Con No Te Pierdas En Las Redes</span></div>
       <p>Programa de acompañamiento en inteligencia artificial para once empresas de Amurrio, contratado por la asociación de empresas del municipio. No era un curso: nos sentábamos con cada equipo dentro de su negocio, encontrábamos el cuello de botella real y dejábamos algo funcionando antes de irnos.</p>
       <div class="gal"><figure class="w"><img src="img/impulso_formacion.jpg" alt="Iker y Oier presentando los resultados en la formación en grupo de Impulso Digital" width="1622" height="388" style="aspect-ratio:auto"><figcaption class="mono soft">Formación en grupo con las empresas del programa</figcaption></figure></div>
+      <a class="cta case" href="https://iapymeconsultores.github.io/casoEXITOimpulsodigital/" target="_blank" rel="noopener"><img src="img/r_caso.jpg" alt="" width="1200" height="750" loading="lazy"><span><span class="mono">El caso de éxito</span>Ver el caso completo de Impulso Digital<small>Las 11 empresas, el método y los resultados, en una web</small></span><span class="tar" aria-hidden="true">↗</span></a>
       <div class="kpi"><div><strong>11</strong><span>empresas acompañadas una a una</span></div><div><strong>5</strong><span>sectores, del transporte a la destilería</span></div><div><strong>4</strong><span>fases por empresa</span></div><div><strong>100 %</strong><span>salieron con una solución funcionando</span></div></div>
       <p class="mono soft">El proceso</p>
       <ol class="path">
@@ -578,7 +879,43 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
       <p><b>Gorobel Kirol Gunea.</b> El WhatsApp del equipo estaba saturado de preguntas repetidas. Desde la segunda sesión tienen un chatbot en la web que responde solo, y el marketing de clases en redes funciona automatizado. Después siguieron trabajando con nosotros.</p>
       <p><b>MMC Pulidos.</b> Nivel digital bajo y todo el conocimiento en la cabeza de dos o tres personas. Con IA creamos manuales visuales paso a paso para cada máquina y OCR para los albaranes. La formación de un operario nuevo ya no depende de que esté el experto.</p>
       <p>El resto: Adigrafik, Artomaña Txakolina, Destilerías Manuel Acha, Ekin Consultoría, Etxeguren Zerbitzuak, Gráficas Amurrio, Licores Barañano y Talleres F. Larrinaga.</p>
-      <div class="src"><a href="https://iapymeconsultores.github.io/casoEXITOimpulsodigital/" target="_blank" rel="noopener">Caso de éxito completo · Impulso Digital</a></div>
+      <a class="cta" href="https://iapymeconsultores.github.io/casoEXITOimpulsodigital/" target="_blank" rel="noopener">Ver el caso de éxito completo <span aria-hidden="true">↗</span></a>
+      <p class="mono soft ctahint">Es uno de nuestros mayores éxitos: once de once empresas salieron con algo funcionando</p>
+</template>
+<template id="case-baranano">
+      <p class="mono soft">08 / De cliente a producto</p>
+      <h3>Licores Barañano</h3>
+      <div class="meta"><span>2025 → hoy</span><span>Amurrio</span><span>Software a medida</span><span>IApyme</span></div>
+      <p>Fábrica de licores familiar de Amurrio: crema, manzana, patxaran, hierbas, orujo y vermut, a granel y embotellado. La conocimos en Impulso Digital.</p>
+      <p>Como cualquier elaborador de alcohol, tiene que declarar cada movimiento a Hacienda en SILICIE. Lo hacían a mano en una plantilla de Excel, copiando de sus facturas, y llevaban la producción en otros cuatro Excel. Les construimos dos herramientas:</p>
+      <div class="tools2">
+        <div class="box">
+          <p class="mono">Herramienta 1</p>
+          <b>Facturas a SILICIE</b>
+          <dl class="spec">
+            <div><dt>Entra</dt><dd>Las facturas en PDF que saca su programa de facturación, Sage 50.</dd></div>
+            <div><dt>Hace</dt><dd>Seis pasos: extrae cada línea, la normaliza, la cruza con su maestro de productos y clientes, calcula, valida y exporta. Todas las cuentas con decimales exactos.</dd></div>
+            <div><dt>Sale</dt><dd>Los apuntes escritos en una copia de su plantilla SILICIE real, en la hoja que ya usaban, sin tocar sus fórmulas.</dd></div>
+            <div><dt>Aprendimos</dt><dd>Tres reglas que solo sabía el cliente: los productos personalizados se declaran con el código base, el código de cliente lleva un prefijo contable que hay que quitar y el epígrafe sale de las tablas de su propio libro.</dd></div>
+            <div><dt>Cómo se usa</dt><dd>En su ordenador, con doble clic, sin instalar nada raro. Con tests de cada paso y de principio a fin.</dd></div>
+          </dl>
+        </div>
+        <div class="box">
+          <p class="mono">Herramienta 2</p>
+          <b>Mermas e incidencias</b>
+          <dl class="spec">
+            <div><dt>Entra</dt><dd>Sus cuatro Excel de producción: entradas, elaborado, embotellado y salidas.</dd></div>
+            <div><dt>Hace</dt><dd>Calcula totales y mermas, y marca cada incidencia con su número de fila para corregirla en el Excel de origen. Al volver a subirlo, recalcula.</dd></div>
+            <div><dt>Encontró</dt><dd>Precios metidos en la columna de cantidad, entradas apuntadas dos veces, elaboraciones duplicadas el mismo día, un producto con el código de otro y grados escritos como "?".</dd></div>
+            <div><dt>Siguiente</dt><dd>Nos pidió apuntar lotes con un audio y dar entrada a la materia prima con una foto del albarán. Está valorado, no construido.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="kpi"><div><strong>2</strong><span>herramientas construidas</span></div><div><strong>6</strong><span>pasos de factura a apunte</span></div><div><strong>4</strong><span>Excel de producción leídos a la vez</span></div><div><strong>0</strong><span>fórmulas tocadas en su plantilla</span></div></div>
+      <p class="mono soft srcnote" style="margin-top:-10px">Las herramientas corren en el Windows del cliente con sus datos reales, por eso aquí no hay capturas.</p>
+      <p>Mientras las montábamos, fue el propio cliente quien nos dijo que aquello le podía servir a todo el sector. Ahí empezó Alambique, y Barañano entró como primer piloto.</p>
+      <div class="src"><button type="button" class="btn" data-open="alambique">Ver Alambique →</button></div>
+      <p class="mono soft" style="margin-top:24px">Lo que dice el cliente</p><blockquote class="tq"><p>Vais al grano, y sois efectivos.</p><cite class="mono">Gaizka Barañano · Licores Barañano</cite></blockquote>
 </template>
 <template id="case-india-corea">
       <p class="mono soft">09 / IApyme fuera de casa</p>
@@ -586,12 +923,23 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
       <div class="meta"><span>Ene → abr 2026</span><span>Learning Journey</span><span>Pitch en inglés</span></div>
       <p>En India presentamos IApyme en inglés ante un público que no conocía nada del País Vasco. En Seúl diseñé con Make Your Way un programa que junta herramientas de IA con Design Thinking para founders y lo llevamos a 11 hubs de startups, entre ellos Google for Startups Campus, Seoul Global Center y DreamPlus Gangnam.</p>
       <div class="kpi"><div><strong>11</strong><span>hubs contactados en Seúl</span></div><div><strong>2</strong><span>países</span></div></div>
-      <div class="gal"><figure class="w"><img src="img/iapyme_india.jpg" alt="Iker y Oier presentando IApyme Consultores en inglés" width="1179" height="885"></figure></div>
-    </template>
+      <div class="gal"><figure class="w"><img src="img/iapyme_india.jpg" alt="Iker y Oier presentando IApyme Consultores en inglés" width="1179" height="885" loading="lazy"><figcaption class="mono soft">Presentando IApyme en inglés en India</figcaption></figure></div>
+      <p class="mono soft">Las propuestas para los hubs de Seúl</p>
+      <p>A cada hub le llevamos una propuesta hecha web, en inglés y con su identidad. Ábrelas: están publicadas tal cual las vieron ellos.</p>
+      <a class="lcard hero" href="https://iapymeconsultores.github.io/GSCproposal/" target="_blank" rel="noopener"><img src="img/r_gsc.jpg" alt="Propuesta AI Skills for Founders who build fast" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Para Global Startup Center · Seúl</span><b>AI Skills for Founders who build fast</b><span class="ls">Programa de formación en IA para founders: qué enseñamos, en tres niveles y con calendario hasta abril.</span><span class="go">Abrir la propuesta ↗</span></span></a>
+      <div class="lcards two">
+        <a class="lcard" href="https://iapymeconsultores.github.io/proposal/" target="_blank" rel="noopener"><img src="img/r_myw.jpg" alt="Propuesta IApyme por Make Your Way" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">Con Make Your Way</span><b>IApyme × Make Your Way, la propuesta conjunta</b><span class="go">Abrir ↗</span></span></a>
+        <a class="lcard" href="https://iapymeconsultores.github.io/interactiveprogramm/" target="_blank" rel="noopener"><img src="img/r_myw2.jpg" alt="Embudo interactivo para montar el programa" width="1200" height="750" loading="lazy"><span class="lt"><span class="mono">El embudo dinámico</span><b>Build your programme: el hub elige y sale su propuesta</b><span class="go">Abrir ↗</span></span></a>
+      </div>
+      <figure class="photo w"><img src="img/r_myw3.jpg" alt="Resumen final del programa que se ha montado el hub" width="1200" height="750" loading="lazy"><figcaption class="mono soft">El final del embudo: el resumen del programa que se ha montado el propio hub</figcaption></figure>
+</template>
 <template id="case-scarpa">
       <p class="mono soft">10 / De la tienda de barrio a la tienda online</p>
-      <h3>SCARPA</h3>
-      <div class="meta"><span>Sep → oct 2026</span><span>IApyme</span><span>Shopify</span><span>Erandio</span></div>
+      <div class="titlerow">
+        <div><h3>SCARPA</h3>
+        <div class="meta"><span>Sep → oct 2026</span><span>IApyme</span><span>Shopify</span><span>Erandio</span></div></div>
+        <figure><img src="img/sc_equipo.jpg" alt="Iker y Oier con el cliente de SCARPA en su taller" width="1100" height="825"><figcaption class="mono soft">Con el cliente, en su taller</figcaption></figure>
+      </div>
       <p>SCARPA vende calzado, ropa y traje tradicional vasco en Erandio desde hace más de 50 años. Tenían una web antigua en PrestaShop con un hosting caro que no vendía. Soraya y Diego querían una tienda que se pareciera a ellos y que pudieran llevar solos.</p>
       <p class="mono soft">Cómo lo hicimos</p>
       <ol class="path">
@@ -601,39 +949,71 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
         <li><span>4 · Hoja de ruta</span>Diez fases para pasar del prototipo a Shopify, con guías paso a paso para el alta y la construcción.</li>
         <li><span>5 · Construcción</span>Tema Shopify con secciones propias en Liquid, catálogo con tallas y una opción de "hecho a medida" para que el cliente contacte y se tome medidas. Pago con Shopify Payments y stock de una unidad por talla al empezar.</li>
         <li><span>6 · Legal</span>Redacté el aviso legal y la política de privacidad. Revisamos también su política de devoluciones para que cumpliera la ley de consumidores.</li>
-        <li><span>7 · Formación</span>Publicada en scarpaerandio.com. Formamos a Soraya y Diego y les grabamos vídeos con su propia tienda: subir productos, gestionar pedidos y actualizar stock.</li>
+        <li><span>7 · Formación</span>Tienda montada en scarpaerandio.com, con la página de "abrimos pronto" hasta su apertura. Formamos a Soraya y Diego y les grabamos vídeos con su propia tienda: subir productos, gestionar pedidos y actualizar stock.</li>
       </ol>
       <div class="src">
         <span class="mono soft">Enlaces</span>
-        <a href="https://scarpaerandio.com" target="_blank" rel="noopener">scarpaerandio.com · tienda publicada</a>
         <a href="https://storied-otter-ab5990.netlify.app/" target="_blank" rel="noopener">Prototipo de la home que validamos con el cliente</a>
       </div>
 </template>
 <template id="case-gorobel">
       <p class="mono soft">11 / De cliente de Impulso Digital a proyecto propio</p>
       <h3>Gorobel Kirol Gunea</h3>
-      <div class="meta"><span>Oct 2026</span><span>Llodio y Amurrio</span><span>Servicio de delegación</span></div>
-      <p>Centros deportivos en Llodio y Amurrio. El diagnóstico: las ocho tareas operativas del día a día pasaban por el dueño. Diseñamos un servicio para repartirlas en unas cuatro semanas: diagnóstico de en qué se va su tiempo, áreas con responsable y manuales de una página, un ordenador central con tablero, incidencias y carteles QR, y formación al equipo.</p>
-      <div class="kpi"><div><strong>8 de 8</strong><span>tareas pasaban por el dueño</span></div><div><strong>4 sem.</strong><span>de implantación</span></div><div><strong>21 h</strong><span>de trabajo de IApyme</span></div></div>
+      <div class="meta"><span>Oct 2026</span><span>Llodio y Amurrio</span><span>Servicio de delegación</span><span>Herramienta a medida</span></div>
+      <p>Centros deportivos en Llodio y Amurrio. El diagnóstico: las ocho tareas operativas del día a día pasaban por el dueño. Diseñamos un servicio para repartirlas en unas cuatro semanas, y una herramienta para que el reparto se sostenga cuando nosotros ya no estemos.</p>
+      <div class="kpi"><div><strong>8 de 8</strong><span>tareas pasaban por el dueño</span></div><div><strong>4 sem.</strong><span>de implantación</span></div><div><strong>21 h</strong><span>de trabajo de IApyme</span></div><div><strong>4</strong><span>áreas con responsable</span></div></div>
+
+      <a class="cta case" href="demos/gorobel.html" target="_blank" rel="noopener" data-demo="Gorobel · ordenador central · demo con datos ficticios"><img src="img/g_demo_0.jpg" alt="" width="1300" height="812" loading="lazy"><span><span class="mono">Prototipo de la herramienta</span>Probar el ordenador central de Gorobel<small>Demo con datos ficticios: entra como cualquier persona del equipo</small></span><span class="tar" aria-hidden="true">→</span></a>
+
+      <p class="mono soft">La propuesta y la herramienta, juntas</p>
+      <p>Cada paso del servicio deja algo montado en la herramienta. Así el método no se queda en un PDF.</p>
+      <div class="pairs">
+        <div class="ph"><span class="mono">La propuesta</span><span class="mono">En la herramienta</span></div>
+        <div><b>1 · Diagnóstico</b><span>El dueño apunta una semana todo lo que le interrumpe y lo clasificamos juntos: eliminar, automatizar, delegar o mantener.</span><span>Cada tarea que sobrevive tiene dueño y aparece en su tablero.</span></div>
+        <div><b>2 · Áreas con responsable</b><span>Cuatro áreas: equipo y clases, material, socios nuevos y comunidad, con lo que cada responsable decide solo y lo que consulta.</span><span>Cada persona entra con su nombre y ve solo lo suyo, con sus límites escritos.</span></div>
+        <div><b>3 · Regla de redirección</b><span>Si un socio o un entrenador escribe al dueño, él contesta siempre lo mismo y lo manda al responsable.</span><span>Una pantalla con la respuesta exacta para cada caso: una baja, algo roto, un socio nuevo.</span></div>
+        <div><b>4 · Incidencias y checklists</b><span>Carteles QR en los dos centros y listas de apertura y cierre para el equipo de turno.</span><span>Los avisos del QR le llegan al responsable y las listas se marcan desde el ordenador central.</span></div>
+        <div><b>5 · Revisión de los lunes</b><span>Quince minutos con la responsable del sistema para ver lo pendiente y ajustar.</span><span>El tablero enseña lo abierto de cada área, listo para la revisión.</span></div>
+      </div>
+
+      <p class="mono soft">Los documentos del servicio · pulsa una imagen para verla en grande</p>
       <div class="gal">
-        <figure class="w"><img src="img/w_croquis.jpg" alt="Plano del servicio de delegación para Gorobel" width="1200" height="750"><figcaption class="mono soft">Plano del servicio</figcaption></figure>
-        <figure><img src="img/w_propuesta.jpg" alt="Propuesta de delegación de tareas para Gorobel" width="1200" height="750"></figure>
-        <figure><img src="img/w_crono.jpg" alt="Cronograma del servicio para Gorobel" width="1200" height="750"></figure>
+        <figure class="w"><img src="img/g_crono_0.jpg" alt="Cronograma del servicio: tiempo que pone cada persona" width="1300" height="812" loading="lazy"><figcaption class="mono soft">Cronograma · cuánto tiempo pone cada uno</figcaption></figure>
+        <figure class="w"><img src="img/g_crono_1.jpg" alt="Detalle por fase con actividad, quién, horas y plantilla" width="1300" height="672" loading="lazy"><figcaption class="mono soft">Detalle por fase · actividad, quién, horas y plantilla</figcaption></figure>
+        <figure class="w"><img src="img/g_plano_0.jpg" alt="Plano del servicio por etapa y actor" width="1300" height="1263" loading="lazy"><figcaption class="mono soft">Plano del servicio · lo que ve el cliente y lo que hacemos por detrás</figcaption></figure>
+        <figure><img src="img/r_gor1.jpg" alt="Propuesta de delegación de tareas con el diagrama del dueño" width="1200" height="750" loading="lazy"><figcaption class="mono soft">Propuesta · de 8 de 8 tareas a 0</figcaption></figure>
+        <figure><img src="img/r_gor2.jpg" alt="Fases de implantación en la propuesta" width="1200" height="750" loading="lazy"><figcaption class="mono soft">Propuesta · fases de implantación</figcaption></figure>
+      </div>
+      <div class="src">
+        <span class="mono soft">Enlaces</span>
+        <a href="https://iapymeconsultores.github.io/gorobel-propuesta/" target="_blank" rel="noopener">Propuesta de delegación de tareas · la web que vio el cliente</a>
+        <a href="demos/gorobel.html" target="_blank" rel="noopener" data-demo="Gorobel · ordenador central · demo con datos ficticios">Prototipo del ordenador central · demo con datos ficticios</a>
       </div>
           <p class="mono soft" style="margin-top:24px">Lo que dice el cliente</p><blockquote class="tq"><p>De todos los que me prometían cambiarme el negocio, vosotros habéis hecho entender lo necesario para poder hacerlo yo mismo, y eso no tiene precio.</p><cite class="mono">Gorobel Kirol Gunea</cite></blockquote>
 </template>
 <template id="case-alambique">
       <p class="mono soft">12 / Producto propio</p>
       <h3>Alambique</h3>
-      <div class="meta"><span>Oct 2026 → hoy</span><span>IApyme</span><span>SaaS</span><span>MVP con demo</span></div>
+      <div class="meta"><span>Oct 2026 → hoy</span><span>IApyme</span><span>SaaS</span><span>Versión 0.5.2</span><span>En desarrollo</span></div>
       <p>Software administrativo para destilerías, licoreras y bodegas pequeñas. Nace de trabajar con licoreras de Amurrio en Impulso Digital: el mismo dato se apuntaba en el Excel, en el libro de existencias y en la declaración a Hacienda. Con Alambique cada movimiento se apunta una vez, donde ocurre, y de ahí salen la bodega en cualquier fecha, la trazabilidad de cada lote y el fichero de SILICIE, la declaración de alcohol que estos negocios deben presentar.</p>
+      <p class="live"><span class="dot" aria-hidden="true"></span><span><b>En desarrollo constante.</b> Siete versiones publicadas en menos de tres semanas, de la 0.1 del 29 de octubre a la 0.5.2 del 15 de noviembre de 2026. La iteramos directamente con los elaboradores que tienen demo, empezando por Licores Barañano, que la prueba con sus datos reales en un piloto aparte. Cada versión nueva sale de lo que dicen ellos al usarla.</span></p>
+      <a class="cta case" href="https://alambique-two.vercel.app" target="_blank" rel="noopener"><img src="img/a5_bodega.jpg" alt="" width="1300" height="813" loading="lazy"><span><span class="mono">Demo pública · datos inventados</span>Probar Alambique<small>Se abre sin cuenta, con un recorrido guiado de 17 pasos</small></span><span class="tar" aria-hidden="true">↗</span></a>
       <div class="gal">
-        <figure class="w"><img src="img/a_bodega.jpg" alt="Pantalla Bodega de Alambique con depósitos, barricas y contenidos" width="1300" height="751"><figcaption class="mono soft">Bodega · qué hay en cada depósito, en cualquier fecha</figcaption></figure>
-        <figure><img src="img/a_lote.jpg" alt="Genealogía de un lote en Alambique" width="1300" height="751"><figcaption class="mono soft">Lote · de dónde viene cada botella</figcaption></figure>
-        <figure><img src="img/a_silicie.jpg" alt="Borrador del fichero SILICIE en Alambique" width="1300" height="751"><figcaption class="mono soft">SILICIE · asientos listos para revisar</figcaption></figure>
-        <figure><img src="img/a_home.jpg" alt="Portada de la demo de Alambique" width="1300" height="751"><figcaption class="mono soft">Demo · se prueba sin cuenta</figcaption></figure>
-        <figure><img src="img/a_importar.jpg" alt="Importador de Excel de Alambique" width="1300" height="751"><figcaption class="mono soft">Importar · lee el Excel que ya saca su programa</figcaption></figure>
+        <figure class="w"><img src="img/a5_bodega.jpg" alt="Pantalla Bodega de Alambique con la nave, los depósitos y la sala de barricas" width="1300" height="813" loading="lazy"><figcaption class="mono soft">Bodega · la nave dibujada, con lo que hay en cada depósito</figcaption></figure>
+        <figure><img src="img/a5_lotes.jpg" alt="Lista de lotes con cantidad, ubicación y origen" width="1300" height="813" loading="lazy"><figcaption class="mono soft">Lotes · de dónde viene cada botella</figcaption></figure>
+        <figure><img src="img/a5_silicie.jpg" alt="Pantalla SILICIE con plazos y asientos pendientes" width="1300" height="813" loading="lazy"><figcaption class="mono soft">SILICIE · plazos y asientos listos para subir</figcaption></figure>
+        <figure><img src="img/a5_movimientos.jpg" alt="Diario de movimientos de la bodega" width="1300" height="813" loading="lazy"><figcaption class="mono soft">Movimientos · el diario de la bodega</figcaption></figure>
+        <figure><img src="img/a5_home.jpg" alt="Portada de la demo de Alambique" width="1300" height="813" loading="lazy"><figcaption class="mono soft">Portada · se prueba sin cuenta</figcaption></figure>
       </div>
+      <p class="mono soft">Versión a versión</p>
+      <ol class="vers">
+        <li><span>0.1 · 29 oct</span><b>Vanilla</b>La primera demo: la bodega dibujada, importar el Excel, apuntar la producción y el borrador de SILICIE.</li>
+        <li><span>0.2 · 4 nov</span><b>Manual y recorrido</b>Manual con capturas dentro de la demo y recorrido guiado al entrar.</li>
+        <li><span>0.3 · 5 nov</span><b>Piloto de Barañano</b>La misma herramienta con usuario y contraseña, y sus datos guardados de verdad.</li>
+        <li><span>0.4 · 9 nov</span><b>Aspecto Nave</b>Deja de parecer una plantilla y se parece a una nave de verdad.</li>
+        <li><span>0.5 · 13 nov</span><b>Como en la nave</b>Lo que pidió Gaizka al verla: elaborar con sus fórmulas, menos densa y el alta desde su Excel.</li>
+        <li><span>0.5.2 · 15 nov</span><b>Arreglos</b>Cuentas de solo lectura y la trazabilidad del lote, otra vez con su esquema de flechas.</li>
+      </ol>
       <p class="mono soft">El mercado</p>
       <div class="funnel">
         <div><span class="fl">TAM · España</span><span class="fb" style="--w:100%"></span><span class="fv"><b>4.446</b> bodegas, licoreras y sidrerías · 1,6 a 5,3 M€/año</span></div>
@@ -645,29 +1025,15 @@ dialog.panel[open]{animation:pin .45s cubic-bezier(.2,.7,.2,1)}
       </div>
       <p>Lo que sacamos del análisis: Euskadi sirve para validar, pero el negocio está en la bodega española, que es el 88 % del mercado alcanzable. La licorera es la puerta de entrada. El rival de una bodega pequeña no es otro software, es el formulario gratuito de la Diputación, así que no vendemos "cumplir SILICIE" sino no copiar el dato dos veces ni equivocarse. Hay dos huecos sin competidor: las sidrerías y un producto que complemente el programa de gestión del cliente en vez de sustituirlo. Precio de partida: 39 a 59 € al mes y un alta de 200 a 400 €.</p>
       <p class="mono soft">Cómo lo desarrollamos</p>
-      <p>Toda la investigación, las decisiones y el código viven en una bóveda de notas enlazadas y en un repositorio de GitHub. La demo la construyó un equipo de agentes de IA coordinado por nosotros: 30 agentes, 22,8 horas activas y unos 467 $ de uso de API. El resultado son 665 tests automáticos, 23 decisiones documentadas y una base de datos con aislamiento entre empresas ya probado.</p>
+      <p>Toda la investigación, las decisiones y el código viven en una bóveda de notas enlazadas y en un repositorio de GitHub. Lo construye un equipo de agentes de IA que coordinamos nosotros: investigadores, diseñador, desarrolladores, QA y seguridad. Hasta el 13 de noviembre de 2026 llevamos 80 encargos a agentes, unas 46 horas de trabajo suyo y 12 nuestras de coordinación. A precio de API serían unos 1.216 $; lo que pagamos de verdad es una suscripción mensual.</p>
       <div class="gal"><figure class="w"><img src="img/a_desarrollo.jpg" alt="Historial de cambios del repositorio y mapa de la bóveda de Alambique" width="1600" height="974"><figcaption class="mono soft">Historial del repositorio y mapa de la bóveda: investigación, decisiones, pantallas y rondas de entrevistas</figcaption></figure></div>
-      <div class="kpi"><div><strong>665</strong><span>tests automáticos</span></div><div><strong>30</strong><span>agentes de IA en el sprint</span></div><div><strong>~467 $</strong><span>de coste de API</span></div><div><strong>2</strong><span>pilotos</span></div></div>
-      <p>Siguiente paso: diez entrevistas con elaboradores y una conversación de precio antes de construir más.</p>
+      <div class="kpi"><div><strong>1.093</strong><span>tests automáticos</span></div><div><strong>7</strong><span>versiones publicadas</span></div><div><strong>~58 h</strong><span>de agentes y coordinación</span></div><div><strong>~1.216 $</strong><span>a precio de API</span></div></div>
+      <p>Siguiente paso: que Gaizka la use dos semanas con su cuenta y abrirla a más elaboradores para que la prueben.</p>
       <div class="src">
         <span class="mono soft">Enlaces</span>
-        <a href="https://alambique-iapymeconsultores-projects.vercel.app" target="_blank" rel="noopener">Demo de Alambique</a>
+        <a href="https://alambique-two.vercel.app" target="_blank" rel="noopener">Demo de Alambique · alambique-two.vercel.app</a>
+        <a href="https://alambique-two.vercel.app/manual" target="_blank" rel="noopener">Manual para el cliente, con capturas</a>
       </div>
-</template>
-<template id="case-baranano">
-      <p class="mono soft">08 / De cliente a producto</p>
-      <h3>Licores Barañano</h3>
-      <div class="meta"><span>2025 → hoy</span><span>Amurrio</span><span>Software a medida</span><span>IApyme</span></div>
-      <p>Fábrica de licores familiar de Amurrio: crema, manzana, patxaran, hierbas, orujo y vermut, a granel y embotellado. La conocimos en Impulso Digital.</p>
-      <p>Como cualquier elaborador de alcohol, tiene que declarar cada movimiento a Hacienda en SILICIE. Lo hacían a mano en una plantilla de Excel, copiando de sus facturas, y llevaban la producción en otros cuatro Excel. Les construimos dos herramientas:</p>
-      <ol class="path">
-        <li><span>Facturas a SILICIE</span>Lee las facturas en PDF que salen de su programa de facturación, cruza cada línea con sus productos y clientes, y rellena los apuntes en su propia plantilla de SILICIE sin tocar sus fórmulas.</li>
-        <li><span>Mermas</span>Junta sus cuatro Excel de producción (entradas, elaborado, embotellado y salidas), calcula las mermas y marca las incidencias fila a fila para que las corrijan en origen.</li>
-      </ol>
-      <div class="kpi"><div><strong>2</strong><span>herramientas construidas</span></div><div><strong>4</strong><span>Excel de producción leídos a la vez</span></div><div><strong>0</strong><span>fórmulas tocadas en su plantilla</span></div></div>
-      <p>Mientras las montábamos, fue el propio cliente quien nos dijo que aquello le podía servir a todo el sector. Ahí empezó Alambique, y Barañano entró como primer piloto.</p>
-      <div class="src"><button type="button" class="btn" data-open="alambique">Ver Alambique →</button></div>
-      <p class="mono soft" style="margin-top:24px">Lo que dice el cliente</p><blockquote class="tq"><p>Vais al grano, y sois efectivos.</p><cite class="mono">Gaizka Barañano · Licores Barañano</cite></blockquote>
 </template>
 <template id="case-internacional">
       <p class="mono soft">Extra / Fuera de casa</p>

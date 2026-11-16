@@ -4,17 +4,17 @@ import { animate, stagger } from '../vendor/anime.esm.min.js';
 /* ---------- datos ---------- */
 const PROJECTS = [
   { id: 'dripzone',    n: 'Dripzone Shop',            y: '2022',            t: 'Ecommerce' },
-  { id: 'leinn',       n: 'LEINN · RIVIA',            y: '2023',            t: 'Formación' },
-  { id: 'berlanga',    n: 'Bar de Berlanga de Duero', y: '2024 · 2025',     t: 'Licitación' },
+  { id: 'leinn',       n: 'LEINN · RIVIA',            y: '2022 → hoy',            t: 'Formación' },
+  { id: 'berlanga',    n: 'Bar de Berlanga de Duero', y: '2024 · 2025',     t: 'Licitación pública' },
   { id: 'frezzyks',    n: 'Frezzyks',                 y: 'Dic 2024',        t: 'Retail' },
   { id: 'nueva-york',  n: 'Nueva York y ASETT',       y: 'Ene–may 2025',    t: 'Economía social · ponente' },
-  { id: 'iapyme',      n: 'IApyme Consultores',       y: 'Abr 2025 → hoy',  t: 'Cofundador · CEO', main: true },
+  { id: 'iapyme',      n: 'IApyme Consultores',       y: 'Sep 2024 → hoy',  t: 'Cofundador · CEO', main: true },
   { id: 'impulso',     n: 'Impulso Digital',          y: 'May 2025 → ene 2026', t: 'Consultoría', path: ['iapyme'] },
   { id: 'baranano',    n: 'Licores Barañano',         y: '2025 → hoy',      t: 'Software a medida', path: ['iapyme', 'impulso'] },
   { id: 'india-corea', n: 'India y Corea',            y: 'Ene–abr 2026',    t: 'Internacional', path: ['iapyme'] },
   { id: 'scarpa',      n: 'SCARPA',                   y: 'Sep 2026',        t: 'Shopify', path: ['iapyme'] },
   { id: 'gorobel',     n: 'Gorobel Kirol Gunea',      y: 'Oct 2026',        t: 'Consultoría', path: ['iapyme', 'impulso'] },
-  { id: 'alambique',   n: 'Alambique',                y: 'Oct 2026 → hoy',  t: 'SaaS · MVP', path: ['iapyme', 'impulso', 'baranano'] },
+  { id: 'alambique',   n: 'Alambique',                y: 'Oct 2026 → hoy',  t: 'SaaS · en desarrollo', path: ['iapyme', 'impulso', 'baranano'] },
   { id: 'internacional', n: 'Internacional',          y: 'Inglés C1',       t: 'Idiomas y viajes', x: true },
   { id: 'herramientas', n: 'Herramientas',            y: 'Con qué',         t: 'Hard skills', x: true },
 ];
@@ -28,11 +28,22 @@ let vel = 0;
 const pad = (i) => String(i + 1).padStart(2, '0');
 
 /* ---------- utilidades de interfaz ---------- */
+/* recorrido: Sobre mí, los proyectos en orden, los extras, experiencia y contacto */
+const TOUR = ['@about', ...PROJECTS.map((p) => p.id), '@exp', '@contact'];
+const PAGES = { '@about': ['tpl-about', 'Sobre mí', 'sobre-mi'], '@exp': ['tpl-exp', 'Experiencia', 'experiencia'], '@contact': ['tpl-contact', 'Contacto', 'contacto'] };
 const $ = (s) => document.querySelector(s);
 const root = document.documentElement;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const store = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } };
+let seen = new Set();
+try { seen = new Set(JSON.parse(store('ig-seen') || '[]')); } catch (e) { seen = new Set(); }
+const onSeen = [];
+function markSeen(id) {
+  if (seen.has(id)) return;
+  seen.add(id); store('ig-seen', JSON.stringify([...seen]));
+  onSeen.forEach((f) => f(id));
+}
 
 /* tema */
 const savedTheme = store('ig-theme');
@@ -56,10 +67,14 @@ PROJECTS.forEach((p, i) => {
   nav.appendChild(li);
   const card = document.createElement('button');
   card.type = 'button'; card.className = 'icard' + (p.main ? ' main' : ''); card.dataset.i = i;
-  card.innerHTML = `<span class="ic"><img src="${p.img}" alt="" loading="lazy" ></span><span class="il"><span class="ix">${p.x ? '+' : pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></span>`;
+  card.innerHTML = `<span class="ic"><img src="${p.img}" alt="" loading="lazy" ><span class="ibig">${p.x ? '+' : pad(i)}</span><span class="iseen">Visto</span></span><span class="il"><span class="ix">${p.x ? '+' : pad(i)}</span><span class="nm">${p.n}</span><span class="yr">${p.y}</span></span>`;
+  card.classList.toggle('seen', seen.has(p.id));
   gridEl.appendChild(card);
 });
+onSeen.push((id) => { const c = gridEl.querySelector(`.icard[data-i="${byId(id)}"]`); if (c) c.classList.add('seen'); });
 document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-tour]');
+  if (t) { goTour(t.dataset.tour); return; }
   const o = e.target.closest('[data-open]');
   if (o) { const k = byId(o.dataset.open); if (k > -1) { openCase(k); return; } }
   const b = e.target.closest('[data-i]');
@@ -91,24 +106,138 @@ function openCase(i, fromHash) {
     body.prepend(nav);
   }
   pix.textContent = num(cur);
+  markSeen(p.id);
+  body.insertAdjacentHTML('beforeend', tourHTML(p.id));
+  initGame();
   $('#panelNav').hidden = false;
   if (!dlg.open) dlg.showModal();
   fitTitle();
   body.parentElement.scrollTop = 0;
   if (!fromHash) { try { history.replaceState(null, '', '#' + p.id); } catch (e) {} }
 }
-function openPage(id) {
-  const tpl = document.getElementById(id);
-  body.innerHTML = tpl.innerHTML; cur = -1;
-  pix.textContent = id === 'tpl-about' ? 'Sobre mí' : 'Contacto';
+function openPage(key) {
+  const [tid, name, hash] = PAGES[key];
+  body.innerHTML = document.getElementById(tid).innerHTML; cur = -1;
+  if (key === '@about') markSeen('@about');
+  if (key === '@exp') markSeen('@exp');
+  body.insertAdjacentHTML('beforeend', tourHTML(key));
+  pix.textContent = name;
   $('#panelNav').hidden = true;
   if (!dlg.open) dlg.showModal();
   fitTitle();
   body.parentElement.scrollTop = 0;
-  try { history.replaceState(null, '', '#' + (id === 'tpl-about' ? 'sobre-mi' : 'contacto')); } catch (e) {}
+  initGame();
+  try { history.replaceState(null, '', '#' + hash); } catch (e) {}
 }
-$('#aboutBtn').addEventListener('click', () => openPage('tpl-about'));
-$('#contactBtn').addEventListener('click', () => openPage('tpl-contact'));
+/* el siguiente paso del recorrido, siempre al final de cada ficha */
+function stepName(k) {
+  if (PAGES[k]) return PAGES[k][1];
+  const i = byId(k), p = PROJECTS[i];
+  return p.x ? `Extra · ${p.n}` : `${pad(i)} · ${p.n}`;
+}
+function tourHTML(key) {
+  const t = TOUR.indexOf(key), next = TOUR[t + 1], prev = TOUR[t - 1];
+  const i = byId(key), p = i > -1 ? PROJECTS[i] : null;
+  let lab, frac;
+  if (p && !p.x) { lab = `Proyecto ${pad(i)} de ${String(NP).padStart(2, '0')}`; frac = (i + 1) / NP; }
+  else if (p) { lab = 'Extra · cómo trabajo'; frac = 1; }
+  else { lab = key === '@about' ? 'Empieza aquí' : key === '@exp' ? 'Casi al final' : 'Final del recorrido'; frac = key === '@about' ? 0 : 1; }
+  const nSeen = PROJECTS.filter((q) => !q.x && seen.has(q.id)).length;
+  const ticks = PROJECTS.filter((q) => !q.x).map((q, k) => `<i class="${seen.has(q.id) ? 'v' : ''}${k === i ? ' c' : ''}"></i>`).join('');
+  const nextLab = !next ? '' : key === '@about' ? 'Empezar el recorrido' : next === '@exp' ? 'Para terminar' : next === '@contact' ? 'Último paso' : 'Siguiente';
+  return `<nav class="tour" aria-label="Recorrido">
+    <div class="tprog"><span class="mono">${lab}</span><span class="tticks" aria-hidden="true">${ticks}</span><span class="mono soft">${nSeen >= NP ? 'Has visto los 12' : `Vistos ${nSeen} de ${NP}`}</span></div>
+    ${next ? `<button type="button" class="tnext" data-tour="${next}"><span class="mono">${nextLab}</span><b>${stepName(next)}</b><span class="tar" aria-hidden="true">→</span></button>` : `<button type="button" class="tnext" data-tour="@ring"><span class="mono">Fin del recorrido</span><b>Volver a la rueda</b><span class="tar" aria-hidden="true">↺</span></button>`}
+    <div class="tsub">${prev ? `<button type="button" data-tour="${prev}">← ${stepName(prev)}</button>` : '<span></span>'}<button type="button" data-tour="@index">Ver todos los proyectos</button></div>
+  </nav>`;
+}
+function goTour(k) {
+  if (k === '@index') { dlg.close(); setIndex(true); return; }
+  if (k === '@ring') { dlg.close(); setIndex(false); return; }
+  if (k === '@start') { const nx = TOUR.find((x) => !seen.has(x) && x !== '@contact') || '@about'; goTour(nx); return; }
+  if (PAGES[k]) openPage(k); else openCase(byId(k));
+}
+$('#aboutBtn').addEventListener('click', () => openPage('@about'));
+$('#contactBtn').addEventListener('click', () => openPage('@contact'));
+$('#expBtn').addEventListener('click', () => openPage('@exp'));
+document.querySelectorAll('[data-tour-start]').forEach((b) => b.addEventListener('click', () => goTour('@start')));
+
+/* guía de entrada: qué toca ahora */
+function updGuide() {
+  const n = PROJECTS.filter((p) => !p.x && seen.has(p.id)).length;
+  document.querySelectorAll('[data-seen-n]').forEach((e) => { e.textContent = n; });
+  const nx = TOUR.find((x) => !seen.has(x) && x !== '@contact');
+  const started = seen.size > 0;
+  document.querySelectorAll('[data-tour-start] b').forEach((e) => { e.textContent = !started ? 'Empezar el recorrido' : nx ? `Seguir: ${stepName(nx)}` : 'Volver a empezar'; });
+  document.querySelectorAll('.guide li[data-step]').forEach((li) => {
+    const st = li.dataset.step;
+    const done = st === 'about' ? seen.has('@about') : st === 'work' ? n >= NP : false;
+    li.classList.toggle('done', done);
+  });
+}
+onSeen.push(updGuide); updGuide();
+
+/* minijuego de RIVIA: cuánto hemos facturado */
+function initGame() {
+  const g = body.querySelector('.game');
+  if (!g) return;
+  const r = g.querySelector('input'), out = g.querySelector('output'), btn = g.querySelector('button'), res = g.querySelector('.gres');
+  const fmt = (v) => Number(v).toLocaleString('es-ES') + ' €';
+  const show = () => { out.textContent = fmt(r.value); };
+  r.addEventListener('input', () => { show(); g.classList.remove('done'); });
+  show();
+  let tries = 0;
+  const ANS = 'Más de 200.000 € entre todos, en cuatro años y sin dejar de estudiar.';
+  btn.addEventListener('click', () => {
+    const v = +r.value, T = 200000, d = Math.abs(v - T) / T;
+    const [t, c] = d <= .1 ? ['¡Correcto!', 'ok'] : d <= .3 ? ['Casi', 'near'] : ['Frío', 'far'];
+    tries++;
+    g.dataset.r = c; g.classList.add('done');
+    if (c === 'ok' || tries >= 3) { res.innerHTML = `<b>${t}</b> ${ANS}`; return; }
+    res.innerHTML = `<b>${t}</b> ${v < T ? 'Te quedas corto.' : 'Te pasas.'} Prueba otra vez o <button type="button" class="greveal">mira la respuesta</button>.`;
+    res.querySelector('.greveal').addEventListener('click', () => { res.innerHTML = `<b>200.000 €</b> ${ANS}`; g.dataset.r = 'ok'; });
+  });
+}
+/* ver una imagen en grande dentro de la ficha */
+const lb = document.createElement('div');
+lb.className = 'lb'; lb.hidden = true; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-label', 'Imagen ampliada');
+lb.innerHTML = '<button type="button" class="btn lbx">Cerrar <span class="soft">esc</span></button><div class="lbin"><img alt=""><p class="mono"></p></div>';
+dlg.appendChild(lb);
+const lbClose = () => { lb.hidden = true; lb.querySelector('img').removeAttribute('src'); };
+lb.addEventListener('click', lbClose);
+function openLb(src, cap, alt) {
+  const li = lb.querySelector('img'); li.src = src; li.alt = alt || '';
+  lb.querySelector('p').textContent = cap || '';
+  lb.hidden = false; lb.scrollTop = 0; lb.querySelector('.lbx').focus();
+}
+/* las demos se abren dentro del portfolio, a pantalla completa */
+const dm = document.createElement('div');
+dm.className = 'demo'; dm.hidden = true; dm.setAttribute('role', 'dialog'); dm.setAttribute('aria-label', 'Demo');
+dm.innerHTML = '<div class="dmbar"><span class="mono dmt"></span><a class="btn dmo" target="_blank" rel="noopener">Abrir aparte ↗</a><button type="button" class="btn dmx">Cerrar <span class="soft">esc</span></button></div><iframe title="Demo"></iframe>';
+dlg.appendChild(dm);
+const dmClose = () => { dm.hidden = true; dm.querySelector('iframe').removeAttribute('src'); };
+dm.querySelector('.dmx').addEventListener('click', dmClose);
+function openDemo(src, title) {
+  dm.querySelector('.dmt').textContent = title || 'Demo';
+  dm.querySelector('.dmo').href = src;
+  dm.querySelector('iframe').src = src;
+  dm.hidden = false; dm.querySelector('.dmx').focus();
+}
+dlg.addEventListener('cancel', (e) => {
+  if (!dm.hidden) { e.preventDefault(); dmClose(); return; }
+  if (!lb.hidden) { e.preventDefault(); lbClose(); }
+});
+dlg.addEventListener('close', () => { lbClose(); dmClose(); });
+body.addEventListener('click', (e) => {
+  const zl = e.target.closest('a[data-zoom]');
+  if (zl) { e.preventDefault(); const zi = zl.querySelector('img'); openLb(zl.getAttribute('href'), zl.dataset.zoom, zi ? zi.alt : ''); return; }
+  const dl = e.target.closest('a[data-demo]');
+  if (dl) { e.preventDefault(); openDemo(dl.getAttribute('href'), dl.dataset.demo); return; }
+  const im = e.target.closest('figure img');
+  if (!im || im.closest('a')) return;
+  const cap = im.closest('figure').querySelector('figcaption');
+  openLb(im.currentSrc || im.src, cap ? cap.textContent : '', im.alt);
+});
 $('#prevBtn').addEventListener('click', () => openCase(cur - 1));
 $('#nextBtn').addEventListener('click', () => openCase(cur + 1));
 $('#closeBtn').addEventListener('click', () => dlg.close());
@@ -117,8 +246,9 @@ dlg.addEventListener('close', () => { try { history.replaceState(null, '', locat
 function fromHash() {
   const h = location.hash.slice(1);
   if (!h) return;
-  if (h === 'sobre-mi') return openPage('tpl-about');
-  if (h === 'contacto') return openPage('tpl-contact');
+  if (h === 'sobre-mi') return openPage('@about');
+  if (h === 'contacto') return openPage('@contact');
+  if (h === 'experiencia') return openPage('@exp');
   const i = PROJECTS.findIndex((p) => p.id === h);
   if (i > -1) openCase(i, true);
 }
@@ -138,8 +268,11 @@ layoutBtn.addEventListener('click', () => setIndex(!document.body.classList.cont
 document.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   if (dlg.open) {
-    if (cur > -1 && e.key === 'ArrowRight') openCase(cur + 1);
-    if (cur > -1 && e.key === 'ArrowLeft') openCase(cur - 1);
+    if (!dm.hidden || !lb.hidden) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      const nv = body.querySelector(e.key === 'ArrowRight' ? '.tour .tnext' : '.tour .tsub button[data-tour]');
+      if (nv && !e.target.closest('input')) nv.click();
+    }
     return;
   }
   if (e.key === 't' || e.key === 'T') toggleTheme();
@@ -184,7 +317,7 @@ function start() {
   scene.add(ring);
 
   const manager = new THREE.LoadingManager();
-  const loader = new THREE.TextureLoader(manager);
+  const loader = new THREE.ImageLoader(manager);
   let shownPct = 0;
   manager.onProgress = (_u, loaded, total) => {
     const target = Math.round(loaded / total * 100);
@@ -195,16 +328,47 @@ function start() {
   const geo = new THREE.PlaneGeometry(CARD_W, CARD_H);
   const hitMat = new THREE.MeshBasicMaterial({ visible: false, side: THREE.DoubleSide });
   const hits = [];
+  /* cada tarjeta lleva su número grande y, si ya la has visto, la marca de visto */
+  const fontsReady = (document.fonts && document.fonts.load) ? Promise.all([document.fonts.load('700 80px "JetBrains Mono"'), document.fonts.load('700 34px "JetBrains Mono"')]).catch(() => {}) : Promise.resolve();
+  function paint(i) {
+    const st = cards[i] && cards[i].userData, p = PROJECTS[i];
+    if (!st || !st.img) return;
+    const W = 800, H = 600, im = st.img;
+    const cv = st.cv || (st.cv = document.createElement('canvas'));
+    cv.width = W; cv.height = H;
+    const x = cv.getContext('2d');
+    const ia = im.width / im.height, ca = W / H;
+    let sw, sh, sx = 0, sy = 0;
+    if (ia > ca) { sh = im.height; sw = sh * ca; sx = (im.width - sw) * (p.fx ?? .5); } else { sw = im.width; sh = sw / ca; sy = (im.height - sh) * (p.fy ?? .5); }
+    x.drawImage(im, sx, sy, sw, sh, 0, 0, W, H);
+    const lab = p.x ? '+' : pad(i);
+    x.font = '700 80px "JetBrains Mono", monospace'; x.textBaseline = 'middle';
+    const tw = x.measureText(lab).width;
+    x.fillStyle = '#121315'; x.fillRect(W - tw - 48, 0, tw + 48, 104);
+    x.fillStyle = '#F2D20A'; x.fillText(lab, W - tw - 24, 56);
+    if (seen.has(p.id)) {
+      /* visto: la tarjeta se apaga un poco y lleva un sello grande */
+      x.fillStyle = 'rgba(18,19,21,.38)'; x.fillRect(0, 0, W, H);
+      x.beginPath(); x.arc(W / 2, H / 2 - 20, 92, 0, Math.PI * 2); x.fillStyle = '#F2D20A'; x.fill();
+      x.lineWidth = 6; x.strokeStyle = '#121315'; x.stroke();
+      x.beginPath(); x.moveTo(W / 2 - 42, H / 2 - 20); x.lineTo(W / 2 - 10, H / 2 + 12); x.lineTo(W / 2 + 46, H / 2 - 50);
+      x.lineWidth = 22; x.lineCap = 'round'; x.lineJoin = 'round'; x.stroke();
+      x.font = '700 40px "JetBrains Mono", monospace';
+      const t2 = 'VISTO', w2 = x.measureText(t2).width;
+      x.fillStyle = '#121315'; x.fillRect(W / 2 - w2 / 2 - 18, H / 2 + 88, w2 + 36, 58);
+      x.fillStyle = '#F2D20A'; x.fillText(t2, W / 2 - w2 / 2, H / 2 + 118);
+    }
+    if (!st.tex) {
+      st.tex = new THREE.CanvasTexture(cv);
+      st.tex.colorSpace = THREE.SRGBColorSpace;
+      st.tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      cards[i].material.map = st.tex; cards[i].material.needsUpdate = true;
+    } else st.tex.needsUpdate = true;
+  }
+  onSeen.push((id) => { const k = byId(id); if (k > -1) paint(k); });
   const cards = PROJECTS.map((p, i) => {
     const mat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, toneMapped: false, side: THREE.DoubleSide });
-    loader.load(p.img, (tex) => {
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      const ia = tex.image.width / tex.image.height, ca = CARD_W / CARD_H;
-      if (ia > ca) { tex.repeat.set(ca / ia, 1); tex.offset.set((1 - ca / ia) * (p.fx ?? .5), 0); }
-      else { tex.repeat.set(1, ia / ca); tex.offset.set(0, (1 - ia / ca) * (1 - (p.fy ?? .5))); }
-      mat.map = tex; mat.needsUpdate = true;
-    });
+    loader.load(p.img, (img) => { cards[i].userData.img = img; fontsReady.then(() => paint(i)); });
     const m = new THREE.Mesh(geo, mat);
     m.userData = { i, s: 0, hover: 0, base: (Math.PI / 2) - (i / N) * Math.PI * 2 };
     ring.add(m);
@@ -227,16 +391,33 @@ function start() {
     grpDots.appendChild(c); dots.push(c);
   }
   const beam = $('#beam'), beamLine = $('#beamLine'), beamRet = $('#beamRet'), beamDot = $('#beamDot');
+  const guideEl = $('#guide');
   function resize() {
     const w = stage.clientWidth, h = stage.clientHeight;
     renderer.setSize(w, h, false);
-    camera.aspect = w / h; camera.updateProjectionMatrix();
+    camera.aspect = w / h;
     const visH = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     const visW = visH * camera.aspect;
     const m = Math.min(visW, visH * .86);
     R = m * .42;
     cardScale = Math.max(.42, R * .33);
     ppu = h / visH; W2 = w / 2; H2 = h / 2;
+    /* la guía de entrada ocupa la izquierda: la rueda se aparta y, si no cabe, encoge */
+    let sx = 0;
+    const gOn = guideEl && getComputedStyle(guideEl).display !== 'none' && !document.body.classList.contains('is-index');
+    if (gOn) {
+      const gx = guideEl.getBoundingClientRect().right + 20;
+      const ext = (R * ppu) + (Math.max(.42, R * .33) * ppu) * .78 + 34;
+      const free = w - gx - 16;
+      if (2 * ext > free) { const k = free / (2 * ext); R *= k; cardScale = Math.max(.3, cardScale * k); }
+      const ext2 = (R * ppu) + (cardScale * ppu) * .78 + 34;
+      sx = Math.max(0, gx + Math.max(free / 2, ext2) - w / 2);
+      sx = Math.min(sx, Math.max(0, w / 2 - ext2 - 16));
+    }
+    camera.setViewOffset(w, h, -sx, 0, w, h);
+    camera.updateProjectionMatrix();
+    W2 = w / 2 + sx;
+    document.documentElement.style.setProperty('--sx', sx + 'px');
     Rpx = R * ppu; cardPx = cardScale * ppu;
     const inner = (R - cardScale * .62) * ppu;
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
@@ -250,6 +431,8 @@ function start() {
   }
   resize();
   addEventListener('resize', resize);
+  if (document.fonts) document.fonts.ready.then(resize);
+  new MutationObserver(resize).observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
   /* entrada tipo ruleta: aparecen en orden */
   let angle = reduce ? 0 : -Math.PI * .9;
@@ -295,7 +478,7 @@ function start() {
     const r = stage.getBoundingClientRect();
     mouse.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     if (dragging) {
-      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const cx = r.left + W2, cy = r.top + H2;
       const a1 = Math.atan2(lastY - cy, lastX - cx), a0 = Math.atan2(e.clientY - cy, e.clientX - cx);
       let d = a0 - a1; if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2;
       angle -= d; vel = -d * .6;
@@ -419,6 +602,7 @@ function start() {
       tx = (tmp.x * .5 + .5) * W2 * 2; ty = (-tmp.y * .5 + .5) * H2 * 2; aim = true;
     } else if (hasMouse && mouse.x < 5) { tx = mx; ty = my; }
     else { tx = W2; ty = H2 - Rpx; }
+    if (!Number.isFinite(tx) || !Number.isFinite(ty)) { tx = W2; ty = H2 - Rpx; aim = false; }
     const dx = tx - W2, dy = ty - H2, dist = Math.hypot(dx, dy) || 1;
     const st = Math.min(1, dist / Math.max(Rpx, 1));
     lx += (dx / dist * st - lx) * .09; ly += (dy / dist * st - ly) * .09;
