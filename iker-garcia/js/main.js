@@ -391,6 +391,7 @@ function start() {
     grpDots.appendChild(c); dots.push(c);
   }
   const beam = $('#beam'), beamLine = $('#beamLine'), beamRet = $('#beamRet'), beamDot = $('#beamDot');
+  let VW = 0;
   const guideEl = $('#guide');
   function resize() {
     const w = stage.clientWidth, h = stage.clientHeight;
@@ -416,7 +417,7 @@ function start() {
     }
     camera.setViewOffset(w, h, -sx, 0, w, h);
     camera.updateProjectionMatrix();
-    W2 = w / 2 + sx;
+    W2 = w / 2 + sx; VW = w;
     document.documentElement.style.setProperty('--sx', sx + 'px');
     Rpx = R * ppu; cardPx = cardScale * ppu;
     const inner = (R - cardScale * .62) * ppu;
@@ -599,7 +600,7 @@ function start() {
     if (fi > -1) {
       const c = cards[fi];
       tmp.copy(c.position).project(camera);
-      tx = (tmp.x * .5 + .5) * W2 * 2; ty = (-tmp.y * .5 + .5) * H2 * 2; aim = true;
+      tx = (tmp.x * .5 + .5) * VW; ty = (-tmp.y * .5 + .5) * H2 * 2; aim = true;
     } else if (hasMouse && mouse.x < 5) { tx = mx; ty = my; }
     else { tx = W2; ty = H2 - Rpx; }
     if (!Number.isFinite(tx) || !Number.isFinite(ty)) { tx = W2; ty = H2 - Rpx; aim = false; }
@@ -616,7 +617,7 @@ function start() {
     if (aim && cards[fi].scale.x > .05) {
       const c = cards[fi];
       c.updateMatrixWorld();
-      const P = [[-.5, -.375], [.5, -.375], [.5, .375], [-.5, .375]].map(([x, y]) => { tmp.set(x, y, 0); c.localToWorld(tmp); tmp.project(camera); return [(tmp.x * .5 + .5) * W2 * 2, (-tmp.y * .5 + .5) * H2 * 2]; });
+      const P = [[-.5, -.375], [.5, -.375], [.5, .375], [-.5, .375]].map(([x, y]) => { tmp.set(x, y, 0); c.localToWorld(tmp); tmp.project(camera); return [(tmp.x * .5 + .5) * VW, (-tmp.y * .5 + .5) * H2 * 2]; });
       const gx = P.reduce((a, p) => a + p[0], 0) / 4, gy = P.reduce((a, p) => a + p[1], 0) / 4;
       const Q = P.map(([x, y]) => [gx + (x - gx) * 1.07, gy + (y - gy) * 1.07]);
       let d = '';
